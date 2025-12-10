@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>ZHR_PRT</ARBGB>
+    <MASTERLANG>T</MASTERLANG>
+    <STEXT>Portal süreçleri mesajları</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>000</MSGNR>
+     <TEXT>&amp; &amp; &amp; &amp;</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>KVKK dosyası bulunamadı!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>KVKK versiyonu zorunludur!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>Kullanıcı yönetici değildir!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>Ekip listesi bulunamadı!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>Personel takvimi bulunmuyor!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>Personel numarası giriniz.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>Süreç bulunamadı!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>&amp; süreci şuanda aktif değil! Sistem yöneticinize başvurunuz.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>009</MSGNR>
+     <TEXT>Onaycı bulunamadı!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>010</MSGNR>
+     <TEXT>Talep numarası giriniz.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>011</MSGNR>
+     <TEXT>&amp; - &amp; tarihleri ile kesişen talebiniz mevcuttur.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>012</MSGNR>
+     <TEXT>&amp; numaralı &amp; talebi oluşturuldu.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>013</MSGNR>
+     <TEXT>Sadece Onaylandı veya Reddedildi durumu iletebilirsiniz.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>014</MSGNR>
+     <TEXT>&amp; numaralı &amp; talebi &amp; .</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>015</MSGNR>
+     <TEXT>Onay kaydı bulunamadı.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>016</MSGNR>
+     <TEXT>Maksimum talep edilebilir gün ( &amp; ) aşıldı!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>017</MSGNR>
+     <TEXT>&amp; sicili Puantör-Admin rolünde değil! Talep oluşturamazsınız.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>018</MSGNR>
+     <TEXT>3 günden daha eski bir tarihe izin kaydı yapılamaz</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>019</MSGNR>
+     <TEXT>Yeterli &amp; kotanız bulunmamaktadır!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>020</MSGNR>
+     <TEXT>İptal için talep durumu uygun değildir.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>021</MSGNR>
+     <TEXT>&amp; dönemi bordro zarfınızı onaylamanız gerekmektedir.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>022</MSGNR>
+     <TEXT>Bordro zarfı görüntülenemedi.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>023</MSGNR>
+     <TEXT>Süreç numarası giriniz.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>024</MSGNR>
+     <TEXT>Liste bulunamadı!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>025</MSGNR>
+     <TEXT>Numara alanı tanımlı değil,Sistem yöneticinize başvurunuz!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>026</MSGNR>
+     <TEXT>Onayda bekleyen talepler için bu işlemi yapabilirsiniz.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>027</MSGNR>
+     <TEXT>Güncelleme başarısız oldu! Sistem yöneticinize başvurunuz.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>028</MSGNR>
+     <TEXT>Onaycı personel numarası giriniz!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>029</MSGNR>
+     <TEXT>KVKK metni sürümü bulunamadı</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>030</MSGNR>
+     <TEXT>Kayıt güncellendi.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>031</MSGNR>
+     <TEXT>Portalden talep edilmeyen izinler için bura işlem yapılamaz.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>T</SPRSL>
+     <ARBGB>ZHR_PRT</ARBGB>
+     <MSGNR>032</MSGNR>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>

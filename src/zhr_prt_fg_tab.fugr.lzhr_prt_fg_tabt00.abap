@@ -1,0 +1,135 @@
+*---------------------------------------------------------------------*
+*    view related data declarations
+*   generation date: 29.11.2025 at 00:44:54
+*   view maintenance generator version: #001407#
+*---------------------------------------------------------------------*
+*...processing: ZHR_PRT_T002....................................*
+DATA:  BEGIN OF STATUS_ZHR_PRT_T002                  .   "state vector
+         INCLUDE STRUCTURE VIMSTATUS.
+DATA:  END OF STATUS_ZHR_PRT_T002                  .
+CONTROLS: TCTRL_ZHR_PRT_T002
+            TYPE TABLEVIEW USING SCREEN '0001'.
+*...processing: ZHR_PRT_V007....................................*
+TABLES: ZHR_PRT_V007, *ZHR_PRT_V007. "view work areas
+CONTROLS: TCTRL_ZHR_PRT_V007
+TYPE TABLEVIEW USING SCREEN '0007'.
+DATA: BEGIN OF STATUS_ZHR_PRT_V007. "state vector
+          INCLUDE STRUCTURE VIMSTATUS.
+DATA: END OF STATUS_ZHR_PRT_V007.
+* Table for entries selected to show on screen
+DATA: BEGIN OF ZHR_PRT_V007_EXTRACT OCCURS 0010.
+INCLUDE STRUCTURE ZHR_PRT_V007.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZHR_PRT_V007_EXTRACT.
+* Table for all entries loaded from database
+DATA: BEGIN OF ZHR_PRT_V007_TOTAL OCCURS 0010.
+INCLUDE STRUCTURE ZHR_PRT_V007.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZHR_PRT_V007_TOTAL.
+
+*...processing: ZHR_PRT_V010....................................*
+TABLES: ZHR_PRT_V010, *ZHR_PRT_V010. "view work areas
+CONTROLS: TCTRL_ZHR_PRT_V010
+TYPE TABLEVIEW USING SCREEN '0002'.
+DATA: BEGIN OF STATUS_ZHR_PRT_V010. "state vector
+          INCLUDE STRUCTURE VIMSTATUS.
+DATA: END OF STATUS_ZHR_PRT_V010.
+* Table for entries selected to show on screen
+DATA: BEGIN OF ZHR_PRT_V010_EXTRACT OCCURS 0010.
+INCLUDE STRUCTURE ZHR_PRT_V010.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZHR_PRT_V010_EXTRACT.
+* Table for all entries loaded from database
+DATA: BEGIN OF ZHR_PRT_V010_TOTAL OCCURS 0010.
+INCLUDE STRUCTURE ZHR_PRT_V010.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZHR_PRT_V010_TOTAL.
+
+*...processing: ZHR_PRT_VADMIN..................................*
+TABLES: ZHR_PRT_VADMIN, *ZHR_PRT_VADMIN. "view work areas
+CONTROLS: TCTRL_ZHR_PRT_VADMIN
+TYPE TABLEVIEW USING SCREEN '0008'.
+DATA: BEGIN OF STATUS_ZHR_PRT_VADMIN. "state vector
+          INCLUDE STRUCTURE VIMSTATUS.
+DATA: END OF STATUS_ZHR_PRT_VADMIN.
+* Table for entries selected to show on screen
+DATA: BEGIN OF ZHR_PRT_VADMIN_EXTRACT OCCURS 0010.
+INCLUDE STRUCTURE ZHR_PRT_VADMIN.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZHR_PRT_VADMIN_EXTRACT.
+* Table for all entries loaded from database
+DATA: BEGIN OF ZHR_PRT_VADMIN_TOTAL OCCURS 0010.
+INCLUDE STRUCTURE ZHR_PRT_VADMIN.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZHR_PRT_VADMIN_TOTAL.
+
+*...processing: ZHR_PRT_VONAYCI.................................*
+TABLES: ZHR_PRT_VONAYCI, *ZHR_PRT_VONAYCI. "view work areas
+CONTROLS: TCTRL_ZHR_PRT_VONAYCI
+TYPE TABLEVIEW USING SCREEN '0003'.
+DATA: BEGIN OF STATUS_ZHR_PRT_VONAYCI. "state vector
+          INCLUDE STRUCTURE VIMSTATUS.
+DATA: END OF STATUS_ZHR_PRT_VONAYCI.
+* Table for entries selected to show on screen
+DATA: BEGIN OF ZHR_PRT_VONAYCI_EXTRACT OCCURS 0010.
+INCLUDE STRUCTURE ZHR_PRT_VONAYCI.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZHR_PRT_VONAYCI_EXTRACT.
+* Table for all entries loaded from database
+DATA: BEGIN OF ZHR_PRT_VONAYCI_TOTAL OCCURS 0010.
+INCLUDE STRUCTURE ZHR_PRT_VONAYCI.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZHR_PRT_VONAYCI_TOTAL.
+
+*...processing: ZHR_PRT_VONYIK..................................*
+TABLES: ZHR_PRT_VONYIK, *ZHR_PRT_VONYIK. "view work areas
+CONTROLS: TCTRL_ZHR_PRT_VONYIK
+TYPE TABLEVIEW USING SCREEN '0004'.
+DATA: BEGIN OF STATUS_ZHR_PRT_VONYIK. "state vector
+          INCLUDE STRUCTURE VIMSTATUS.
+DATA: END OF STATUS_ZHR_PRT_VONYIK.
+* Table for entries selected to show on screen
+DATA: BEGIN OF ZHR_PRT_VONYIK_EXTRACT OCCURS 0010.
+INCLUDE STRUCTURE ZHR_PRT_VONYIK.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZHR_PRT_VONYIK_EXTRACT.
+* Table for all entries loaded from database
+DATA: BEGIN OF ZHR_PRT_VONYIK_TOTAL OCCURS 0010.
+INCLUDE STRUCTURE ZHR_PRT_VONYIK.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZHR_PRT_VONYIK_TOTAL.
+
+*...processing: ZHR_PRT_VSTELL..................................*
+TABLES: ZHR_PRT_VSTELL, *ZHR_PRT_VSTELL. "view work areas
+CONTROLS: TCTRL_ZHR_PRT_VSTELL
+TYPE TABLEVIEW USING SCREEN '0005'.
+DATA: BEGIN OF STATUS_ZHR_PRT_VSTELL. "state vector
+          INCLUDE STRUCTURE VIMSTATUS.
+DATA: END OF STATUS_ZHR_PRT_VSTELL.
+* Table for entries selected to show on screen
+DATA: BEGIN OF ZHR_PRT_VSTELL_EXTRACT OCCURS 0010.
+INCLUDE STRUCTURE ZHR_PRT_VSTELL.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZHR_PRT_VSTELL_EXTRACT.
+* Table for all entries loaded from database
+DATA: BEGIN OF ZHR_PRT_VSTELL_TOTAL OCCURS 0010.
+INCLUDE STRUCTURE ZHR_PRT_VSTELL.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZHR_PRT_VSTELL_TOTAL.
+
+*.........table declarations:.................................*
+TABLES: *ZHR_PRT_T002                  .
+TABLES: HRP1000                        .
+TABLES: PA0001                         .
+TABLES: T554S                          .
+TABLES: T554T                          .
+TABLES: ZHR_PRT_T002                   .
+TABLES: ZHR_PRT_T007                   .
+TABLES: ZHR_PRT_T010                   .
+TABLES: ZHR_PRT_TADMIN                 .
+TABLES: ZHR_PRT_TONAYCI                .
+TABLES: ZHR_PRT_TONYIK                 .
+TABLES: ZHR_PRT_TSTELL                 .
+
+* general table data declarations..............
+  INCLUDE LSVIMTDT                                .

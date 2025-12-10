@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZHR_PRT_SRCID</ROLLNAME>
+    <DDLANGUAGE>T</DDLANGUAGE>
+    <DOMNAME>ZHR_PRT_SRCID</DOMNAME>
+    <HEADLEN>21</HEADLEN>
+    <SCRLEN2>20</SCRLEN2>
+    <SCRLEN3>21</SCRLEN3>
+    <DDTEXT>Portal süreç numarası</DDTEXT>
+    <REPTEXT>Süreç numarası</REPTEXT>
+    <SCRTEXT_M>Süreç numarası</SCRTEXT_M>
+    <SCRTEXT_L>Süreç numarası</SCRTEXT_L>
+    <ACTFLAG>I</ACTFLAG>
+    <DTELMASTER>T</DTELMASTER>
+    <RESERVEDTE>JB</RESERVEDTE>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>
