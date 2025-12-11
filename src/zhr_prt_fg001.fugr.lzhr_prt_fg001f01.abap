@@ -40,22 +40,22 @@ FORM pers_info  TABLES   pers_info STRUCTURE zhr_prt_s002
           t3~fater
 
          FROM pa0002 AS t2
-   INNER  JOIN pa0770 AS t3
-         ON    t3~pernr EQ t2~pernr
-   INNER JOIN t502t AS fatxt
+   LEFT  JOIN pa0770 AS t3
+         ON    t3~pernr      EQ t2~pernr
+          AND  t3~subty      EQ '01'
+          AND  t3~begda      LE @pv_datum
+          AND  t3~endda      GE @pv_datum
+   LEFT JOIN t502t AS fatxt
          ON    fatxt~famst EQ t2~famst
-   INNER JOIN t005t AS gblnd_t
+          AND  fatxt~sprsl   EQ @sy-langu
+   LEFT JOIN t005t AS gblnd_t
          ON    gblnd_t~land1 EQ t2~gblnd
+          AND  gblnd_t~spras EQ @sy-langu
       INTO CORRESPONDING FIELDS OF TABLE @pers_info
             WHERE t2~pernr      EQ @pv_pernr
               AND t2~begda      LE @pv_datum
-              AND t2~endda      GE @pv_datum
-              AND t3~subty      EQ '01'
-              AND fatxt~sprsl   EQ @sy-langu
-              AND gblnd_t~spras EQ @sy-langu
-              AND t3~begda      LE @pv_datum
-              AND t3~endda      GE @pv_datum.
-  SORT pers_info. "+ATC Correction - GTUNA - 07.11.2025 09:48:04
+              AND t2~endda      GE @pv_datum.
+  SORT pers_info ASCENDING .
   DELETE ADJACENT DUPLICATES FROM pers_info.
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -122,7 +122,7 @@ FORM work_info  TABLES   work_info STRUCTURE zhr_prt_s003
         INNER JOIN t001  AS bukrs_t
               ON    bukrs_t~bukrs EQ t1~bukrs
 
-        INNER JOIN pa0105 AS t2
+        LEFT JOIN pa0105 AS t2
               ON    t2~pernr EQ t1~pernr
                 AND ( t2~subty EQ '0010'  OR t2~subty EQ 'MAIL' )
 
@@ -134,7 +134,7 @@ FORM work_info  TABLES   work_info STRUCTURE zhr_prt_s003
        AND t1~begda     LE @pv_datum
        AND t1~endda     GE @pv_datum
     .
-  SORT work_info. "+ATC Correction - GTUNA - 07.11.2025 09:45:33
+  SORT work_info ASCENDING .
   DELETE ADJACENT DUPLICATES FROM work_info.
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -168,7 +168,7 @@ FORM cont_info  TABLES   cont_info     STRUCTURE zhr_prt_s004
           WHERE pernr EQ @pv_pernr
             AND endda GE @pv_datum.
 
-  SORT cont_info. "+ATC Correction - GTUNA - 07.11.2025 09:46:56
+  SORT cont_info ASCENDING .
   DELETE cont_info WHERE usrid IS INITIAL .
   DELETE ADJACENT DUPLICATES FROM cont_info.
 ENDFORM.
@@ -209,7 +209,7 @@ FORM educ_info  TABLES   educ_info   STRUCTURE zhr_prt_s005
   APPENDING CORRESPONDING FIELDS OF TABLE @educ_info
           WHERE pernr EQ @pv_pernr
             AND endda GE @pv_datum.
-  SORT educ_info. "+ATC Correction - GTUNA - 07.11.2025 09:48:23
+  SORT educ_info ASCENDING .
   DELETE ADJACENT DUPLICATES FROM educ_info.
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -242,7 +242,7 @@ FORM date_info  TABLES   date_info   STRUCTURE zhr_prt_s006
     ENDDO.
   ENDLOOP.
 
-  SORT date_info.
+  SORT date_info  ASCENDING .
   DELETE ADJACENT DUPLICATES FROM date_info.
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -268,7 +268,7 @@ FORM adrs_info  TABLES   adrs_info   STRUCTURE zhr_prt_s007
           WHERE pernr EQ @pv_pernr
             AND endda GE @pv_datum.
 
-  SORT adrs_info. "+ATC Correction - GTUNA - 07.11.2025 09:47:16
+  SORT adrs_info ASCENDING .
   DELETE ADJACENT DUPLICATES FROM adrs_info.
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -298,7 +298,7 @@ FORM faml_info  TABLES   faml_info   STRUCTURE zhr_prt_s008
           WHERE pernr EQ @pv_pernr
             AND endda GE @pv_datum.
 
-  SORT faml_info.
+  SORT faml_info ASCENDING .
   DELETE ADJACENT DUPLICATES FROM faml_info.
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -1174,7 +1174,7 @@ FORM leave_req_send_mail TABLES pt_t004    STRUCTURE zhr_prt_t004
   CASE <ls_t004>-statu.
     WHEN '01'. "  Onay Bekliyor.
       lt_paramaters-param = 'http://ikportaltest.icdas.com.tr:81/#/AppViewer?izin-onaylarim'.
-    WHEN '02' or '03' or '04' OR '05'.
+    WHEN '02' OR '03' OR '04' OR '05'.
       lt_paramaters-param = 'http://ikportaltest.icdas.com.tr:81/#/AppViewer?izin-taleplerim'.
 
     WHEN OTHERS .
@@ -1215,10 +1215,10 @@ FORM leave_req_send_mail TABLES pt_t004    STRUCTURE zhr_prt_t004
       iv_tdname = lv_tname
 *     iv_pernr  = lv_pernr
       it_email  = lt_email
+      t_param   = lt_paramaters[]
     IMPORTING
       et_return = lt_return[]
-    TABLES
-      t_param   = lt_paramaters[].
+     .
   REFRESH lt_email.
   APPEND LINES OF lt_return TO et_return.
 ENDFORM.

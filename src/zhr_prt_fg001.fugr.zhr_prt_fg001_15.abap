@@ -5,10 +5,9 @@ FUNCTION zhr_prt_fg001_15.
 *"     VALUE(IV_SENDER) TYPE  AD_SMTPADR OPTIONAL
 *"     VALUE(IV_TDNAME) TYPE  TDOBNAME
 *"     VALUE(IT_EMAIL) TYPE  ZHR_PRT_TT023
+*"     VALUE(T_PARAM) TYPE  ZHR_PRT_TT019
 *"  EXPORTING
 *"     VALUE(ET_RETURN) TYPE  ZHR_PRT_TRETURN
-*"  TABLES
-*"      T_PARAM STRUCTURE  ZHR_PRT_S019
 *"----------------------------------------------------------------------
 
   DATA : cx_req_bcs TYPE REF TO cx_send_req_bcs,

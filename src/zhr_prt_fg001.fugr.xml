@@ -995,6 +995,10 @@
        <PARAMETER>IT_EMAIL</PARAMETER>
        <TYP>ZHR_PRT_TT023</TYP>
       </RSIMP>
+      <RSIMP>
+       <PARAMETER>T_PARAM</PARAMETER>
+       <TYP>ZHR_PRT_TT019</TYP>
+      </RSIMP>
      </IMPORT>
      <EXPORT>
       <RSEXP>
@@ -1002,12 +1006,6 @@
        <TYP>ZHR_PRT_TRETURN</TYP>
       </RSEXP>
      </EXPORT>
-     <TABLES>
-      <RSTBL>
-       <PARAMETER>T_PARAM</PARAMETER>
-       <DBSTRUCT>ZHR_PRT_S019</DBSTRUCT>
-      </RSTBL>
-     </TABLES>
      <DOCUMENTATION>
       <RSFDO>
        <PARAMETER>IV_SENDER</PARAMETER>
@@ -1025,14 +1023,14 @@
        <STEXT>Mail adresleri</STEXT>
       </RSFDO>
       <RSFDO>
-       <PARAMETER>ET_RETURN</PARAMETER>
-       <KIND>P</KIND>
-       <STEXT>Portal Süreç Mesajları</STEXT>
-      </RSFDO>
-      <RSFDO>
        <PARAMETER>T_PARAM</PARAMETER>
        <KIND>P</KIND>
        <STEXT>Mail parametresi</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Portal Süreç Mesajları</STEXT>
       </RSFDO>
      </DOCUMENTATION>
     </item>
