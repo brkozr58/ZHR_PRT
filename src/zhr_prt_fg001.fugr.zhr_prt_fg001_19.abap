@@ -1,4 +1,4 @@
-FUNCTION ZHR_PRT_FG001_19.
+FUNCTION zhr_prt_fg001_19.
 *"----------------------------------------------------------------------
 *"*"Local Interface:
 *"  IMPORTING
@@ -14,28 +14,11 @@ FUNCTION ZHR_PRT_FG001_19.
 *MAXTG
   DATA : ls_data TYPE zhr_prt_s021.
   DATA langu LIKE sy-langu VALUE 'T'.
-  DATA : lr_awart TYPE RANGE OF awart ,
-        lt_awart TYPE TABLE OF zhr_prt_ddl005  WITH HEADER LINE .
+  DATA : lr_awart TYPE RANGE OF awart,
+         lt_awart TYPE TABLE OF zhr_prt_ddl005  WITH HEADER LINE.
 
-*  DATA : BEGIN OF lt_awart OCCURS 0 ,
-*           qttps(10),
-*           ktart_t   TYPE t556b-ktext,
-*           awart     TYPE t554t-awart,
-*           awart_t   TYPE t554t-atext,
-*           mintg     TYPE t554s-mintg,
-*           maxtg     TYPE t554s-maxtg,
-*         END OF lt_awart .
 
   SET LOCALE LANGUAGE  langu.
-
-
-*
-*  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0204' )  TO lr_awart.
-*  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0213' )  TO lr_awart.
-*  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0215' )  TO lr_awart.
-*  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0217' )  TO lr_awart.
-*  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0241' )  TO lr_awart.
-*  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0424' )  TO lr_awart.
 
 
   PERFORM get_awart_qouta_type TABLES lt_awart
@@ -46,14 +29,11 @@ FUNCTION ZHR_PRT_FG001_19.
   DELETE ADJACENT DUPLICATES FROM lt_awart.
   DELETE lt_awart WHERE NOT awart IN lr_awart .
 
-*  LOOP AT lt_awart INTO DATA(ls_awart).
-*    MOVE-CORRESPONDING ls_awart TO ls_data .
-*    IF ( ls_awart-mintg EQ '000' AND ls_awart-maxtg EQ '999' ) OR
-*       ( ls_awart-mintg EQ '000' AND ls_awart-maxtg EQ '001' ) .
-*      ls_data-hours = 'X'.
-*    ENDIF.
-*    COLLECT ls_data INTO t_awart.
-*  ENDLOOP.
+  LOOP AT lt_awart .
+    MOVE-CORRESPONDING lt_awart TO ls_data .
+    ls_data-hours = lt_awart-zhour.
+    COLLECT ls_data INTO t_awart.CLEAR ls_data .
+  ENDLOOP.
 
   DELETE ADJACENT DUPLICATES FROM t_awart.
 ENDFUNCTION.

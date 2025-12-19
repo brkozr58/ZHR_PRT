@@ -15,9 +15,7 @@
     <SCRTEXT_S>Açıklama</SCRTEXT_S>
     <SCRTEXT_M>Açıklama</SCRTEXT_M>
     <SCRTEXT_L>Açıklama</SCRTEXT_L>
-    <ACTFLAG>I</ACTFLAG>
     <DTELMASTER>T</DTELMASTER>
-    <RESERVEDTE>JB</RESERVEDTE>
     <REFKIND>D</REFKIND>
    </DD04V>
   </asx:values>

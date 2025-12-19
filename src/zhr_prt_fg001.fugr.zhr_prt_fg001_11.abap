@@ -94,12 +94,21 @@ FUNCTION zhr_prt_fg001_11.
                                 lv_begda
                                 lv_endda.
 
+  " Admin ekranından giriş yapıldığında.
   IF i_admin EQ 'X'.
+    " Admin ekranından giren kişi admin tablosunda varsa sistemdeki bütün onayda bekleyen izinlere müdehale edebilir
     LOOP AT lt_tadmin INTO DATA(ls_tadmn) WHERE pernr IN lr_ap_pernr[].ENDLOOP. " Admin onaycı ise herkesi görsün
     IF sy-subrc NE 0  .
-      DELETE et_list WHERE NOT ap_pernr IN lr_ap_pernr[].
+      " Zaman yöneticisi admin ekranında çalışanlarının bütün taleplerini görebilsin ve ilerletebilsin.
+      READ TABLE gt_zmynt INTO DATA(ls_zmynt) WITH KEY pernr = apr_pernr.
+      IF sy-subrc EQ 0 .
+        DELETE et_list WHERE sachz NE ls_zmynt-sachx .
+      ELSE.
+        DELETE et_list WHERE NOT ap_pernr IN lr_ap_pernr[].
+      ENDIF.
     ENDIF.
   ELSE.
+    " Yönetici ekrnaından giriş yapıldığında sadece onayındaki kayıtlar için işlem yapabilsin
     DELETE et_list WHERE NOT ap_pernr IN lr_ap_pernr[].
   ENDIF.
 

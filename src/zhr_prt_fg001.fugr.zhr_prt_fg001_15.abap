@@ -34,15 +34,6 @@ FUNCTION zhr_prt_fg001_15.
   DATA langu LIKE sy-langu VALUE 'T'.
   SET LOCALE LANGUAGE  langu.
 
-*&1& Talep numarası
-*&2& Talep ismi
-*&3& statü tanımı
-*&4& Personel Adı soyadı veya
-*&5& Onaycı Adı soyadı
-*&6& Talep tarihi
-*&7& izin gün
-*&8& Link
-*&9& Açıklama
   PERFORM read_text TABLES lt_lines et_return USING iv_tdname .
   CHECK lt_lines IS NOT INITIAL .
 

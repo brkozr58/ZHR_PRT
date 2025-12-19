@@ -85,5 +85,6 @@ FUNCTION zhr_prt_fg001_06.
                                ls_return .
   ENDIF.
 
+  SORT et_list DESCENDING BY begda endda.
 
 ENDFUNCTION.

@@ -14,7 +14,7 @@ INFOTYPES : 0000,
             2002,
             2003,
             2006 .
-CONSTANTS  gv_sender TYPE adr6-smtp_addr VALUE 'burak.ozer@detaysoft.com'.
+CONSTANTS  gv_sender TYPE adr6-smtp_addr VALUE 'noreply@icdas.com.tr'.
 
 TYPES: BEGIN OF pernr_ptgqd_kansp,
          pernr        TYPE pernr-pernr,

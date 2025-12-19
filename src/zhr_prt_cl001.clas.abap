@@ -27,11 +27,13 @@ CLASS ZHR_PRT_CL001 IMPLEMENTATION.
   METHOD constructor.
 
     get_person_values(
-**      EXPORTING
-**        uname   = SY-UNAME
        IMPORTING
          et_pers =  t_pers[]
      ).
+
+    READ TABLE t_pers INTO s_pers INDEX 1 .
+
+
   ENDMETHOD.
 
 

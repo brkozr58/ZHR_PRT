@@ -1,7 +1,5 @@
 *---------------------------------------------------------------------*
 *    view related data declarations
-*   generation date: 29.11.2025 at 00:44:54
-*   view maintenance generator version: #001407#
 *---------------------------------------------------------------------*
 *...processing: ZHR_PRT_T002....................................*
 DATA:  BEGIN OF STATUS_ZHR_PRT_T002                  .   "state vector

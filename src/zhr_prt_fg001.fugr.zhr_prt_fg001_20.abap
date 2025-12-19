@@ -47,9 +47,9 @@ FUNCTION zhr_prt_fg001_20.
          sachz,
     " Yönetici ise X gelecek
          CAST(  ( CASE ( ynt~objid )
-                    WHEN ' ' THEN ' '
-                    ELSE ynt~rsign END ) AS CHAR( 1 ) ) AS  zynt
-*         orgsv~orgsvy AS zhrorg
+                    WHEN ' '  THEN ' '
+                    ELSE ynt~rsign END ) AS CHAR( 1 ) ) AS  zynt ,
+         CAST( ( ' ' ) AS CHAR( 2 ) ) AS zhrorg
                  FROM pa0001  AS t1
       INNER JOIN hrp1000 AS stell
             ON    stell~plvar EQ '01'

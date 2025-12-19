@@ -19,7 +19,7 @@ define view ZHR_PRT_CDS001
                                          and p2.begda <= t1.endda
                                          and p2.endda >= t1.begda
   //
-    left outer join pa0105       as t2   on  t2.pernr = t1.pernr
+    inner join      pa0105       as t2   on  t2.pernr = t1.pernr
                                          and t2.subty = 'ECUS'
                                          and t2.begda <= $session.system_date
                                          and t2.endda >= $session.system_date
@@ -35,22 +35,19 @@ define view ZHR_PRT_CDS001
                                          and cell.endda >= $session.system_date
 
   //
-    left outer join pa0105       as mail on  mail.pernr   = t1.pernr
-                                         and (
-                                            mail.subty    = '0010'
-                                            or mail.subty = 'MAIL'
-                                          )
-                                         and mail.begda   <= $session.system_date
-                                         and mail.endda   >= $session.system_date
+    left outer join pa0105       as mail on  mail.pernr = t1.pernr
+                                         and ( mail.subty = '0010' or mail.subty = 'MAIL' )
+                                         and mail.begda <= $session.system_date
+                                         and mail.endda >= $session.system_date
 {
       //
-  key t1.mandt,
+
   key t1.pernr,
       p2.vorna,
       p2.nachn,
       //      t1.ename,
       t1.begda,
-      t1.endda,
+      t1.endda,  
       t0.stat2,
       @EndUserText.label: 'İstihdam durumu'
       cast( ( case ( t0.stat2 ) when '0' then 'İşten ayrıldı'
@@ -84,7 +81,7 @@ define view ZHR_PRT_CDS001
 
       @EndUserText.label: 'SMS kodu'
       zt1.smscd,
-
+ 
       cast( ( case  when zt1.pernr is not initial  then 'X'
-                                else '' end ) as abap.char( 1  ) )             as zoper
+                                else '' end ) as abap.char( 1  ) )            as zoper
 }

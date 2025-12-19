@@ -18,7 +18,10 @@ FUNCTION zhr_prt_fg001_09.
          lt_t006   TYPE TABLE OF zhr_prt_t006, "İzin talepleri onaycıları
          lv_statu  TYPE zhr_prt_statu,
          ls_return TYPE bapireturn1,
-         langu     LIKE sy-langu VALUE 'T'.
+         langu     LIKE sy-langu VALUE 'T',
+         lv_admin  TYPE  flag.
+
+  DATA : et_persons TYPE  zhr_prt_tt022.
 
   DEFINE statu_message.
     CLEAR : ls_return.
@@ -59,7 +62,8 @@ FUNCTION zhr_prt_fg001_09.
 
   SELECT SINGLE * FROM zhr_prt_ddl002 INTO ls_cds2
       WHERE tlpid     EQ is_leave-tlpid
-        AND ap_statu  EQ '01'.
+        AND ap_statu  EQ '01'
+    .
 
   SELECT * FROM zhr_prt_t004 INTO TABLE lt_t004
       WHERE tlpid EQ is_leave-tlpid.
@@ -85,16 +89,45 @@ FUNCTION zhr_prt_fg001_09.
       statu_message.
       EXIT.
     WHEN OTHERS.
-      " Admin ekranından çağrılmamışsa ve tamamlandı statüyse hata ver
-      IF i_admin NE 'X' AND <fs_4>-statu EQ '04'.
-        statu_message.
-        EXIT.
+      lv_admin = i_admin.
+      " Zaman yöneticisi kendi taleplerini statü farketmeksizin iptal edebilsin.
+      IF i_admin NE 'X' AND cr_pernr EQ is_leave-pernr.
+        CALL FUNCTION 'ZHR_PRT_FG001_20'
+          EXPORTING
+            i_pernr    = cr_pernr
+            i_datum    = sy-datum
+          IMPORTING
+            et_persons = et_persons.
+        READ TABLE et_persons INTO DATA(ls_persons) INDEX 1 .
+        IF ls_persons-aptyp NE 'ZMNY'.
+          statu_message.
+          EXIT.
+        ELSE.
+          lv_admin = 'X'.
+        ENDIF.
+
+      ELSE.
+        " Admin ekranından çağrılmamışsa ve tamamlandı statüyse hata ver
+        IF i_admin NE 'X' AND <fs_4>-statu EQ '04'.
+          statu_message.
+          EXIT.
+        ENDIF.
       ENDIF.
+
+
       READ TABLE lt_t006 ASSIGNING FIELD-SYMBOL(<fs_6>)
               WITH KEY tlpid = is_leave-tlpid statu = '01'.
+      IF sy-subrc NE 0 AND <fs_4>-statu EQ '04' AND i_statu EQ '05'.
+        SELECT * FROM zhr_prt_t006 INTO TABLE lt_t006
+            WHERE tlpid EQ is_leave-tlpid
+              AND seqnr EQ ( SELECT MAX( seqnr ) FROM zhr_prt_t006
+                              WHERE tlpid EQ is_leave-tlpid ).
+        READ TABLE lt_t006 ASSIGNING <fs_6> WITH KEY tlpid = is_leave-tlpid  .
+      ENDIF.
       lv_statu = <fs_6>-statu = i_statu.
       <fs_6>-ap_zdesc = is_leave-ap_zdesc .
-      lv_statu = <fs_4>-statu = i_statu.
+*      lv_statu = <fs_4>-statu = i_statu.
+      lv_statu = i_statu.
 *      <fs_4>-unamechn = <fs_5>-unamechn = <fs_6>-unamechn = sy-uname  .
       <fs_4>-unamechn = <fs_5>-unamechn = <fs_6>-unamechn = cr_pernr  .
       <fs_4>-datumchn = <fs_5>-datumchn = <fs_6>-datumchn = sy-datum  .
@@ -111,13 +144,15 @@ FUNCTION zhr_prt_fg001_09.
                                  'S'
                                  '014'
                                  ls_return .
-      IF <fs_4>-statu EQ '04' AND i_admin EQ 'X' . "Tamamlandı varsa sil
+      IF <fs_4>-statu EQ '04' AND lv_admin EQ 'X' . "Tamamlandı varsa sil
+        <fs_4>-statu = i_statu.
         PERFORM operation_leave_data
                                   TABLES  et_return
                                    USING  lv_statu
                                           is_leave-tlpid
                                           is_leave-pernr
-                                          'DEL'.
+                                          'DEL'
+                                          <fs_5>.
         READ TABLE et_return TRANSPORTING NO FIELDS WITH KEY type = 'E'.
         CHECK sy-subrc NE 0 .
       ENDIF.
@@ -132,7 +167,6 @@ FUNCTION zhr_prt_fg001_09.
                                           gv_sender.
       READ TABLE et_return TRANSPORTING NO FIELDS WITH KEY type = 'E'.
       CHECK sy-subrc NE 0 .
-
       MODIFY zhr_prt_t004 FROM TABLE lt_t004.
       MODIFY zhr_prt_t005 FROM TABLE lt_t005.
       MODIFY zhr_prt_t006 FROM TABLE lt_t006.

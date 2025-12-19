@@ -13,9 +13,7 @@
     <REPTEXT>İzinden dönüş tarihi</REPTEXT>
     <SCRTEXT_M>İzinden dönüş tarihi</SCRTEXT_M>
     <SCRTEXT_L>İzinden dönüş tarihi</SCRTEXT_L>
-    <ACTFLAG>I</ACTFLAG>
     <DTELMASTER>T</DTELMASTER>
-    <RESERVEDTE>JB</RESERVEDTE>
     <REFKIND>D</REFKIND>
    </DD04V>
   </asx:values>

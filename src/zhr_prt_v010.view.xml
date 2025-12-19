@@ -53,6 +53,12 @@
      <LOGFLAG>X</LOGFLAG>
     </DD27P>
    </DD27P_TABLE>
+   <TABL_EXTRAS>
+    <TDDAT>
+     <TABNAME>ZHR_PRT_V010</TABNAME>
+     <CCLASS>&amp;NC&amp;</CCLASS>
+    </TDDAT>
+   </TABL_EXTRAS>
   </asx:values>
  </asx:abap>
 </abapGit>

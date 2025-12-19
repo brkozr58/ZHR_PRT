@@ -13,9 +13,7 @@
     <REPTEXT>Talep durumu</REPTEXT>
     <SCRTEXT_M>Talep durumu</SCRTEXT_M>
     <SCRTEXT_L>Talep durumu</SCRTEXT_L>
-    <ACTFLAG>I</ACTFLAG>
     <DTELMASTER>T</DTELMASTER>
-    <RESERVEDTE>JB</RESERVEDTE>
     <REFKIND>D</REFKIND>
    </DD04V>
   </asx:values>

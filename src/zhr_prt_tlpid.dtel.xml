@@ -13,9 +13,7 @@
     <REPTEXT>Talep numarası</REPTEXT>
     <SCRTEXT_M>Talep numarası</SCRTEXT_M>
     <SCRTEXT_L>Talep numarası</SCRTEXT_L>
-    <ACTFLAG>I</ACTFLAG>
     <DTELMASTER>T</DTELMASTER>
-    <RESERVEDTE>JB</RESERVEDTE>
     <REFKIND>D</REFKIND>
    </DD04V>
   </asx:values>

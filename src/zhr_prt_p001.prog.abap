@@ -66,7 +66,7 @@ END-OF-SELECTION.
 FORM send_user.
 
   DATA:
-*        result   LIKE zicdmesaj_log OCCURS 1 WITH HEADER LINE,
+
         ls_t001  TYPE zhr_prt_t001,
         ls_users TYPE zhr_prt_ddl001,
         lt_rows  TYPE lvc_t_row,

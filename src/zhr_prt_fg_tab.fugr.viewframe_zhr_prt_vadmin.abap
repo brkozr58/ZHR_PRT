@@ -1,7 +1,5 @@
 *---------------------------------------------------------------------*
 *    program for:   VIEWFRAME_ZHR_PRT_VADMIN
-*   generation date: 07.11.2025 at 14:44:28
-*   view maintenance generator version: #001407#
 *---------------------------------------------------------------------*
 FUNCTION VIEWFRAME_ZHR_PRT_VADMIN      .
 

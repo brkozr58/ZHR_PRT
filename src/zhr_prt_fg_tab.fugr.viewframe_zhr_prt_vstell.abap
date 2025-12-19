@@ -1,7 +1,5 @@
 *---------------------------------------------------------------------*
 *    program for:   VIEWFRAME_ZHR_PRT_VSTELL
-*   generation date: 03.11.2025 at 22:58:32
-*   view maintenance generator version: #001407#
 *---------------------------------------------------------------------*
 FUNCTION VIEWFRAME_ZHR_PRT_VSTELL      .
 

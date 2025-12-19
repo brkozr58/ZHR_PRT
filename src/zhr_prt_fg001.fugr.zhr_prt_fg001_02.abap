@@ -15,7 +15,8 @@ FUNCTION zhr_prt_fg001_02.
            pa0022,  t001p        ,
            pa0041,  t001         ,
            pa0105,  t517t        ,
-           pa0770,  t005t          .
+*           zent_ta_lok           ,
+           pa0770,  t005t        .
 
   DATA : lr_datum TYPE RANGE OF datum .
   DATA : lr_pernr TYPE RANGE OF persno .

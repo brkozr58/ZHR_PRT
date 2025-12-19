@@ -13,9 +13,7 @@
     <REPTEXT>Süreç numarası</REPTEXT>
     <SCRTEXT_M>Süreç numarası</SCRTEXT_M>
     <SCRTEXT_L>Süreç numarası</SCRTEXT_L>
-    <ACTFLAG>I</ACTFLAG>
     <DTELMASTER>T</DTELMASTER>
-    <RESERVEDTE>JB</RESERVEDTE>
     <REFKIND>D</REFKIND>
    </DD04V>
   </asx:values>

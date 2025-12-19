@@ -136,6 +136,7 @@ FUNCTION zhr_prt_fg001_08.
                       endda     = ls_leave-endda
                       beguz     = ls_leave-beguz
                       enduz     = ls_leave-enduz
+                      retdt     = ls_leave-retdt
                       kaltg     = ls_leave-kaltg
                       stdaz     = ls_leave-stdaz
                       abwtg     = ls_leave-abwtg

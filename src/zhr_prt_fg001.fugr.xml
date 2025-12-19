@@ -1311,6 +1311,55 @@
      </DOCUMENTATION>
     </item>
     <item>
+     <FUNCNAME>ZHR_PRT_FG001_22</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>SMS Servis</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_MESAJ</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>STRING</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_MESAJTUR</PARAMETER>
+       <DEFAULT>&apos;PRT&apos;</DEFAULT>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>CHAR3</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>E_SUBRC</PARAMETER>
+       <TYP>SUBRC</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ET_RETURN</PARAMETER>
+       <TYP>ZHR_PRT_TRETURN</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_MESAJ</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_MESAJTUR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>SMS Türleri</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_SUBRC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>ABAP System Field: Return Code of ABAP Statements</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Portal Süreç Mesajları</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
      <FUNCNAME>ZHR_PRT_USER_OPERATION</FUNCNAME>
      <SHORT_TEXT>Portal kullanıcısı işlemleri</SHORT_TEXT>
      <IMPORT>

@@ -41,21 +41,21 @@ FORM pers_info  TABLES   pers_info STRUCTURE zhr_prt_s002
 
          FROM pa0002 AS t2
    LEFT  JOIN pa0770 AS t3
-         ON    t3~pernr      EQ t2~pernr
-          AND  t3~subty      EQ '01'
-          AND  t3~begda      LE @pv_datum
-          AND  t3~endda      GE @pv_datum
+         ON    t3~pernr EQ t2~pernr
+          AND t3~subty      EQ '01'
+          AND t3~begda      LE @pv_datum
+          AND t3~endda      GE @pv_datum
    LEFT JOIN t502t AS fatxt
          ON    fatxt~famst EQ t2~famst
-          AND  fatxt~sprsl   EQ @sy-langu
+           AND fatxt~sprsl   EQ @sy-langu
    LEFT JOIN t005t AS gblnd_t
          ON    gblnd_t~land1 EQ t2~gblnd
-          AND  gblnd_t~spras EQ @sy-langu
+           AND gblnd_t~spras EQ @sy-langu
       INTO CORRESPONDING FIELDS OF TABLE @pers_info
             WHERE t2~pernr      EQ @pv_pernr
               AND t2~begda      LE @pv_datum
               AND t2~endda      GE @pv_datum.
-  SORT pers_info ASCENDING .
+  SORT pers_info.
   DELETE ADJACENT DUPLICATES FROM pers_info.
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -77,14 +77,17 @@ FORM work_info  TABLES   work_info STRUCTURE zhr_prt_s003
       persg_t~ptext AS persg_t    ,
       t1~persk                    ,
       persk_t~ptext AS persk_t    ,
+      CAST( ( ' ' ) AS CHAR( 1 ) ) AS zyakatur ,
+      CAST( ( ' ' ) AS CHAR( 25 ) ) AS zyakatur_t ,
 *      t1~zyakatur                 ,
-
 *      CASE ( t1~zyakatur )
 *        WHEN 'M' THEN 'Mavi Yaka'
 *        WHEN 'B' THEN 'Beyaz Yaka'
 *        ELSE 'Bilinmiyor!'
 *      END         AS zyakatur_t   ,
-*
+
+      CAST( ( ' ' ) AS CHAR( 3 ) ) AS lokkod ,
+      CAST( ( ' ' ) AS CHAR( 35 ) ) AS lokkod_t ,
 *      t1~zzlokkod     AS lokkod   ,
 *      zzlokkod~lokadi AS lokkod_t ,
       t1~btrtl                    ,
@@ -93,33 +96,33 @@ FORM work_info  TABLES   work_info STRUCTURE zhr_prt_s003
       bukrs_t~butxt   AS bukrs_t
               FROM pa0001 AS t1
 
-        INNER JOIN t513s AS stell_t
+        LEFT JOIN t513s AS stell_t
               ON    stell_t~stell EQ t1~stell
                 AND stell_t~sprsl EQ @sy-langu
                 AND stell_t~endda GE @pv_datum
 
-        INNER JOIN t527x AS orgeh_t
+        LEFT JOIN t527x AS orgeh_t
               ON    orgeh_t~orgeh EQ t1~orgeh
                 AND orgeh_t~sprsl EQ @sy-langu
                 AND orgeh_t~endda GE @pv_datum
 
-        INNER JOIN t528t AS plans_t
+        LEFT JOIN t528t AS plans_t
               ON    plans_t~plans EQ t1~plans
                 AND plans_t~sprsl EQ @sy-langu
                 AND plans_t~endda GE @pv_datum
 
-        INNER JOIN t501t AS persg_t
+        LEFT JOIN t501t AS persg_t
               ON    persg_t~persg EQ t1~persg
                 AND persg_t~sprsl EQ @sy-langu
 
-        INNER JOIN t503t AS persk_t
+        LEFT JOIN t503t AS persk_t
               ON    persk_t~persk EQ t1~persk
                 AND persk_t~sprsl EQ @sy-langu
 
-        INNER JOIN t001p AS btrtl_t
+        LEFT JOIN t001p AS btrtl_t
               ON    btrtl_t~btrtl EQ t1~btrtl
 
-        INNER JOIN t001  AS bukrs_t
+        LEFT JOIN t001  AS bukrs_t
               ON    bukrs_t~bukrs EQ t1~bukrs
 
         LEFT JOIN pa0105 AS t2
@@ -134,7 +137,7 @@ FORM work_info  TABLES   work_info STRUCTURE zhr_prt_s003
        AND t1~begda     LE @pv_datum
        AND t1~endda     GE @pv_datum
     .
-  SORT work_info ASCENDING .
+  SORT work_info.
   DELETE ADJACENT DUPLICATES FROM work_info.
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -168,7 +171,7 @@ FORM cont_info  TABLES   cont_info     STRUCTURE zhr_prt_s004
           WHERE pernr EQ @pv_pernr
             AND endda GE @pv_datum.
 
-  SORT cont_info ASCENDING .
+  SORT cont_info.
   DELETE cont_info WHERE usrid IS INITIAL .
   DELETE ADJACENT DUPLICATES FROM cont_info.
 ENDFORM.
@@ -189,7 +192,8 @@ FORM educ_info  TABLES   educ_info   STRUCTURE zhr_prt_s005
          t1~sltp2                 ,
          sltp2_t~ftext AS sltp2_t ,
          t1~begda,
-         t1~emark
+         t1~emark,
+      CAST( ( ' ' ) AS CHAR( 30 ) ) AS zdipno
 *         t1~zdipno
           FROM pa0022  AS t1
     LEFT OUTER JOIN t517t   AS slart_t
@@ -209,7 +213,7 @@ FORM educ_info  TABLES   educ_info   STRUCTURE zhr_prt_s005
   APPENDING CORRESPONDING FIELDS OF TABLE @educ_info
           WHERE pernr EQ @pv_pernr
             AND endda GE @pv_datum.
-  SORT educ_info ASCENDING .
+  SORT educ_info. "+ATC Correction - GTUNA - 07.11.2025 09:48:23
   DELETE ADJACENT DUPLICATES FROM educ_info.
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -242,7 +246,7 @@ FORM date_info  TABLES   date_info   STRUCTURE zhr_prt_s006
     ENDDO.
   ENDLOOP.
 
-  SORT date_info  ASCENDING .
+  SORT date_info.
   DELETE ADJACENT DUPLICATES FROM date_info.
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -268,7 +272,7 @@ FORM adrs_info  TABLES   adrs_info   STRUCTURE zhr_prt_s007
           WHERE pernr EQ @pv_pernr
             AND endda GE @pv_datum.
 
-  SORT adrs_info ASCENDING .
+  SORT adrs_info. "+ATC Correction - GTUNA - 07.11.2025 09:47:16
   DELETE ADJACENT DUPLICATES FROM adrs_info.
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -298,7 +302,7 @@ FORM faml_info  TABLES   faml_info   STRUCTURE zhr_prt_s008
           WHERE pernr EQ @pv_pernr
             AND endda GE @pv_datum.
 
-  SORT faml_info ASCENDING .
+  SORT faml_info.
   DELETE ADJACENT DUPLICATES FROM faml_info.
 ENDFORM.
 *&---------------------------------------------------------------------*
@@ -553,8 +557,9 @@ FORM append_approver  TABLES pt_approvers STRUCTURE zhr_prt_s014
           t1~plans,
           plans~stext AS plans_t,
           t1~stell,
-          stell~stext AS stell_t
-*          ,zhrorg~orgsvy AS orgsvy
+          stell~stext AS stell_t,
+          CAST( ( ' ' ) AS CHAR( 30 ) )  AS orgsvy
+*          zhrorg~orgsvy AS orgsvy
         FROM        pa0001  AS t1
         INNER  JOIN hrp1000 AS plans
           ON    plans~plvar EQ '01'
@@ -580,9 +585,8 @@ FORM append_approver  TABLES pt_approvers STRUCTURE zhr_prt_s014
         @ls_approver-plans,
         @ls_approver-plans_t,
         @ls_approver-stell,
-        @ls_approver-stell_t
-*        ,@ls_approver-orgsvy
-        )
+        @ls_approver-stell_t,
+        @ls_approver-orgsvy)
   WHERE t1~pernr EQ @ls_approver-pernr
     AND t1~endda GE @i_datum.
 
@@ -873,21 +877,24 @@ FORM operation_leave_data TABLES et_return  STRUCTURE  zhr_prt_sreturn
                           USING pv_statu
                                 pv_tlpid
                                 pv_pernr
-                                pv_oper.
-  DATA :
-    ls_return TYPE bapireturn1,
-    ls_2001   TYPE p2001,
-    ls_t005   TYPE zhr_prt_t005, "İzin talepleri detayı
-    cs_leave  TYPE  zhr_prt_s016,
-    lt_return TYPE  zhr_prt_treturn.
+                                pv_oper
+                        CHANGING cs_t005 STRUCTURE zhr_prt_t005.
+
+  DATA : ls_return TYPE bapireturn1,
+         ls_2001   TYPE p2001,
+         ls_t005   TYPE zhr_prt_t005, "İzin talepleri detayı
+         cs_leave  TYPE zhr_prt_s016,
+         lt_return TYPE zhr_prt_treturn.
 
 
 
 
-  SELECT SINGLE * FROM zhr_prt_t005 INTO ls_t005
-      WHERE tlpid EQ pv_tlpid.
+*  SELECT SINGLE * FROM zhr_prt_t005 INTO ls_t005
+*      WHERE tlpid EQ pv_tlpid.
 
-  IF sy-subrc EQ 0 .
+*  IF sy-subrc EQ 0 .
+  MOVE-CORRESPONDING cs_t005 TO ls_t005.
+  IF cs_t005-tlpid IS NOT INITIAL AND cs_t005-tlpid NE '9999999999' .
     MOVE-CORRESPONDING ls_t005 TO cs_leave.
     CALL FUNCTION 'ZHR_PRT_CHECK_LEAVE'
       EXPORTING
@@ -907,11 +914,12 @@ FORM operation_leave_data TABLES et_return  STRUCTURE  zhr_prt_sreturn
       IMPORTING
         return = ls_return.
     IF ls_return-type NE 'E'.
-      MOVE-CORRESPONDING ls_t005 TO ls_2001.
+      MOVE-CORRESPONDING cs_leave TO ls_2001.
       ls_2001-infty = '2001'.
       ls_2001-subty = ls_t005-awart.
       ls_2001-beguz = ls_t005-beguz.
       ls_2001-enduz = ls_t005-enduz.
+      cs_t005-retdt = cs_leave-retdt.
 
       CALL FUNCTION 'HR_INFOTYPE_OPERATION'
         EXPORTING
@@ -930,7 +938,7 @@ FORM operation_leave_data TABLES et_return  STRUCTURE  zhr_prt_sreturn
         REFRESH et_return.
         PERFORM add_message TABLES et_return
                              USING space
-                                   space
+                                   pv_pernr
                                    'ZHR_PRT'
                                    'E'
                                    '00'
@@ -945,7 +953,7 @@ FORM operation_leave_data TABLES et_return  STRUCTURE  zhr_prt_sreturn
       REFRESH et_return.
       PERFORM add_message TABLES et_return
                            USING space
-                                 space
+                                 pv_pernr
                                  'ZHR_PRT'
                                  'E'
                                  '015'
@@ -956,7 +964,7 @@ FORM operation_leave_data TABLES et_return  STRUCTURE  zhr_prt_sreturn
     REFRESH et_return.
     PERFORM add_message TABLES et_return
                          USING space
-                               space
+                               pv_pernr
                                'ZHR_PRT'
                                'E'
                                '015'
@@ -996,19 +1004,12 @@ FORM leave_req_send_mail TABLES pt_t004    STRUCTURE zhr_prt_t004
            plans~stext AS plans_t,
            stell,
            stell~stext AS stell_t,
-           sachz
-      ,
-*    " Yönetici ise A gelecek
-         CAST(  ( CASE ( ynt~objid )
-                    WHEN ' ' THEN ' '
-                    ELSE ynt~rsign END ) AS CHAR( 1 ) ) AS  zynt ,
-*         orgsv~orgsvy AS zhrorg
-        CAST( ' '  AS CHAR( 2 ) ) AS zhrorg
-*      " Yönetici ise A gelecek
-*           CAST(  ( CASE ( ynt~objid )
-*                      WHEN NULL THEN ' '
-*                      ELSE ynt~rsign END ) AS CHAR( 1 ) ) AS  zynt ,
-*           orgsv~orgsvy AS zhrorg
+           sachz,
+      " Yönetici ise A gelecek
+           CAST(  ( CASE ( ynt~objid )
+                      WHEN ' ' THEN ' '
+                      ELSE ynt~rsign END ) AS CHAR( 1 ) ) AS  zynt ,
+           CAST( ( ' ' ) AS CHAR( 2 ) )  AS zhrorg
                    FROM pa0001  AS t1
         INNER JOIN hrp1000 AS stell
               ON    stell~plvar EQ '01'
@@ -1022,11 +1023,6 @@ FORM leave_req_send_mail TABLES pt_t004    STRUCTURE zhr_prt_t004
                 AND plans~objid EQ t1~plans
                 AND plans~langu EQ @sy-langu
                 AND plans~endda GE @sy-datum
-*        LEFT OUTER JOIN hrp9301 AS orgsv
-*              ON    orgsv~otype EQ 'O'
-*                AND orgsv~plvar EQ '01'
-*                AND orgsv~objid EQ t1~orgeh
-*                AND orgsv~endda GE @sy-datum
         LEFT OUTER JOIN hrp1001 AS ynt
               ON    ynt~plvar EQ '01'
                 AND ynt~otype EQ 'S'
@@ -1034,6 +1030,11 @@ FORM leave_req_send_mail TABLES pt_t004    STRUCTURE zhr_prt_t004
                 AND ynt~rsign EQ 'A'
                 AND ynt~relat EQ '012'
                 AND ynt~endda GE @sy-datum
+*        LEFT OUTER JOIN hrp9301 AS orgsv
+*              ON    orgsv~otype EQ 'O'
+*                AND orgsv~plvar EQ '01'
+*                AND orgsv~objid EQ t1~orgeh
+*                AND orgsv~endda GE @sy-datum
       INTO TABLE @DATA(lt_pernr)
           WHERE t1~pernr EQ @&1
             AND t1~endda GE @&2
@@ -1098,7 +1099,7 @@ FORM leave_req_send_mail TABLES pt_t004    STRUCTURE zhr_prt_t004
   "<<--------END CODE------>>
 *  ENDIF.
 *
-"<<--------BEGIN CODE------>>
+  "<<--------BEGIN CODE------>>
 *&1& Talep numarası
 *&2& Talep ismi
 *&3& statü tanımı
@@ -1110,7 +1111,7 @@ FORM leave_req_send_mail TABLES pt_t004    STRUCTURE zhr_prt_t004
 *&9& Açıklama
 *&10& Onay Red Açıklama
 *&11& İşe dönüş tarihi
-"<<--------END CODE------>>
+  "<<--------END CODE------>>
 
 
 *&1& Talep numarası
@@ -1213,12 +1214,10 @@ FORM leave_req_send_mail TABLES pt_t004    STRUCTURE zhr_prt_t004
     EXPORTING
       iv_sender = pv_sender
       iv_tdname = lv_tname
-*     iv_pernr  = lv_pernr
-      it_email  = lt_email
+      it_email  = lt_email[]
       t_param   = lt_paramaters[]
     IMPORTING
-      et_return = lt_return[]
-     .
+      et_return = lt_return[].
   REFRESH lt_email.
   APPEND LINES OF lt_return TO et_return.
 ENDFORM.
@@ -1330,16 +1329,11 @@ ENDFORM.
 FORM check_qouta TABLES pt_return STRUCTURE zhr_prt_sreturn
                   USING ps_leave  TYPE zhr_prt_s016..
 
-  DATA : BEGIN OF lt_awart OCCURS 0 ,
-           qttps(10),
-           awart     TYPE t554t-awart,
-           awart_t   TYPE t554t-atext,
-           mintg     TYPE t554s-mintg,
-           maxtg     TYPE t554s-maxtg,
-         END OF lt_awart ,
-         ls_return TYPE bapireturn1,
-         lv_qouta  TYPE zhr_prt_s011-qouta,
-         lt_qouta  TYPE  zhr_prt_tt011.
+  DATA :
+        lt_awart TYPE TABLE OF zhr_prt_ddl005  WITH HEADER LINE ,
+        ls_return TYPE bapireturn1,
+        lv_qouta  TYPE zhr_prt_s011-qouta,
+        lt_qouta  TYPE  zhr_prt_tt011.
 
   CALL FUNCTION 'ZHR_PRT_FG001_05'
     EXPORTING
@@ -1349,40 +1343,10 @@ FORM check_qouta TABLES pt_return STRUCTURE zhr_prt_sreturn
     IMPORTING
       et_qouta = lt_qouta.
 
-  "<<--------İzin türleri için kota tipleri ------>>
-  SELECT
-       CASE t554s~dedqu WHEN @abap_true THEN t556r~qttps
-         ELSE @space END AS qttps,
-         per_awart~awart,
-         per_awart~atext   AS awart_t,
-         t554s~mintg AS mintg ,
-         t554s~maxtg AS maxtg
-            FROM pa0001 AS p1
-      INNER JOIN t001                     ON t001~bukrs         EQ p1~bukrs
-      INNER JOIN t001p  AS per_t001p      ON   per_t001p~werks  EQ p1~werks
-                                           AND per_t001p~btrtl  EQ p1~btrtl
-      INNER JOIN t554s  AS t554s          ON   t554s~moabw      EQ per_t001p~moabw
-     INNER JOIN t500p                     ON   t500p~persa      EQ per_t001p~werks
-     LEFT OUTER JOIN t556c                ON   t556c~mozko      EQ t554s~moabw
-                                           AND t556c~crule      EQ t554s~crule
-     LEFT OUTER JOIN t556r                ON   t556r~mozko      EQ t554s~moabw
-                                           AND t556r~qtype      EQ 'A'
-                                           AND t556r~mopgk      EQ t556c~mopgk
-                                           AND t556r~dedrg      EQ t556c~deabp
-                                           AND t556r~endda      GE @sy-datum
-     LEFT OUTER JOIN t554t  AS per_awart  ON   per_awart~moabw  EQ t554s~moabw
-                                           AND per_awart~awart  EQ t554s~subty
-                                           AND per_awart~sprsl  EQ @sy-langu
-        WHERE p1~pernr    EQ @ps_leave-pernr
-          AND p1~endda    GE @sy-datum
-          AND t554s~endda GE @sy-datum
-    INTO CORRESPONDING FIELDS OF TABLE @lt_awart.
-
-
-  SORT lt_awart ASCENDING BY awart.
-  DELETE lt_awart WHERE awart EQ space .
-  DELETE ADJACENT DUPLICATES FROM lt_awart.
-  "<<--------END CODE------>>
+*  "<<--------İzin türleri için kota tipleri ------>>
+  PERFORM get_awart_qouta_type TABLES lt_awart
+                                USING ps_leave-pernr.
+*  "<<--------END CODE------>>
 
 
 
@@ -1416,40 +1380,6 @@ FORM get_awart_qouta_type  TABLES   pt_awart
   SELECT * FROM zhr_prt_ddl005( p_pernr = @pv_pernr )
      INTO CORRESPONDING
         FIELDS OF TABLE @pt_awart  .
-
-*
-*  SELECT
-*        CASE t554s~dedqu WHEN @abap_true THEN t556r~qttps
-*          ELSE @space END    AS qttps,
-*          t556b~ktext        AS ktart_t,
-*          per_awart~awart,
-*          per_awart~atext    AS awart_t,
-*          t554s~mintg        AS mintg ,
-*          t554s~maxtg        AS maxtg
-*             FROM pa0001 AS p1
-*       INNER JOIN t001                     ON t001~bukrs         EQ p1~bukrs
-*       INNER JOIN t001p  AS per_t001p      ON   per_t001p~werks  EQ p1~werks
-*                                            AND per_t001p~btrtl  EQ p1~btrtl
-*       INNER JOIN t554s  AS t554s          ON   t554s~moabw      EQ per_t001p~moabw
-*      INNER JOIN t500p                     ON   t500p~persa      EQ per_t001p~werks
-*      LEFT OUTER JOIN t556c                ON   t556c~mozko      EQ t554s~moabw
-*                                            AND t556c~crule      EQ t554s~crule
-*      LEFT OUTER JOIN t556r                ON   t556r~mozko      EQ t554s~moabw
-*                                            AND t556r~qtype      EQ 'A'
-*                                            AND t556r~mopgk      EQ t556c~mopgk
-*                                            AND t556r~dedrg      EQ t556c~deabp
-*                                            AND t556r~endda      GE @sy-datum
-*      LEFT OUTER JOIN t554t  AS per_awart  ON   per_awart~moabw  EQ t554s~moabw
-*                                            AND per_awart~awart  EQ t554s~subty
-*                                            AND per_awart~sprsl  EQ @sy-langu
-*      LEFT OUTER JOIN t556b  AS t556b      ON   t556b~mopgk  EQ t556c~mopgk
-*                                            AND t556b~mozko  EQ t556c~mozko
-*                                            AND t556b~ktart  EQ t556r~qttps
-*                                            AND t556b~sprsl  EQ @sy-langu
-*         WHERE p1~pernr    EQ @pv_pernr
-*           AND p1~endda    GE @sy-datum
-*           AND t554s~endda GE @sy-datum
-*     INTO CORRESPONDING FIELDS OF TABLE @pt_awart.
 ENDFORM.
 *&---------------------------------------------------------------------*
 *& Form get_leave_list
@@ -1508,15 +1438,6 @@ FORM get_leave_list  TABLES   et_list STRUCTURE zhr_prt_s017_2
 
   SORT et_list ASCENDING BY pernr seqnr DESCENDING begda endda .
 
-*  LOOP AT et_list INTO DATA(ls_list) WHERE tlpid NE '9999999999'
-*                                 AND aptyp EQ 'ZMNY'.
-*    READ TABLE gt_zmynt WITH KEY pernr = ls_list-ap_pernr
-*                                 sachx = ls_list-sachz.
-*    CHECK sy-subrc NE 0 .
-*    DELETE et_list WHERE tlpid    EQ ls_list-tlpid
-*                     AND ap_pernr EQ ls_list-ap_pernr.
-*  ENDLOOP.
-*  SORT et_list ASCENDING BY pernr seqnr DESCENDING begda endda .
 
   LOOP AT et_list INTO DATA(ls_list) WHERE tlpid EQ '9999999999'.
     LOOP AT et_list TRANSPORTING NO FIELDS WHERE tlpid NE ls_list-tlpid

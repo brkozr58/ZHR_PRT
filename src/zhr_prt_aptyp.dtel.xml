@@ -13,9 +13,7 @@
     <REPTEXT>Onaycı tipi</REPTEXT>
     <SCRTEXT_M>Onaycı tipi</SCRTEXT_M>
     <SCRTEXT_L>Onaycı tipi</SCRTEXT_L>
-    <ACTFLAG>I</ACTFLAG>
     <DTELMASTER>T</DTELMASTER>
-    <RESERVEDTE>JB</RESERVEDTE>
     <REFKIND>D</REFKIND>
    </DD04V>
   </asx:values>

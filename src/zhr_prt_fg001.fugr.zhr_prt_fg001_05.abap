@@ -1,4 +1,4 @@
-FUNCTION ZHR_PRT_FG001_05.
+FUNCTION zhr_prt_fg001_05.
 *"----------------------------------------------------------------------
 *"*"Local Interface:
 *"  IMPORTING
@@ -24,20 +24,12 @@ FUNCTION ZHR_PRT_FG001_05.
         hour          TYPE ptgqd_msehi,
         lv_datum      TYPE datum,
         se_ktart      TYPE RANGE OF p2006-ktart,
-        dedu_beg      TYPE p2006-desta VALUE '18000101',
+        dedu_beg      TYPE p2006-begda VALUE '18000101',
         dedu_end      TYPE p2006-deend VALUE '99991231',
         lr_statu      TYPE RANGE OF zhr_prt_statu,
         lt_list       TYPE  zhr_prt_tt017,
         lr_tlpid      TYPE RANGE OF zhr_prt_tlpid,
-*        BEGIN OF lt_awart OCCURS 0 ,
-*          qttps(10),
-*          ktart_t   TYPE t556b-ktext,
-*          awart     TYPE t554t-awart,
-*          awart_t   TYPE t554t-atext,
-*          mintg     TYPE t554s-mintg,
-*          maxtg     TYPE t554s-maxtg,
-*        END OF lt_awart,
-        lt_awart TYPE TABLE OF zhr_prt_ddl005  WITH HEADER LINE .
+        lt_awart TYPE TABLE OF zhr_prt_ddl005  WITH HEADER LINE  .
 
   DATA langu LIKE sy-langu VALUE 'T'.
   SET LOCALE LANGUAGE  langu.
@@ -122,12 +114,12 @@ FUNCTION ZHR_PRT_FG001_05.
 
 
   DATA : lr_awart TYPE RANGE OF awart .
-*  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0204' )  TO lr_awart.
-*  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0213' )  TO lr_awart.
-*  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0215' )  TO lr_awart.
-*  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0217' )  TO lr_awart.
-*  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0241' )  TO lr_awart.
-*  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0424' )  TO lr_awart.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0204' )  TO lr_awart.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0213' )  TO lr_awart.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0215' )  TO lr_awart.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0217' )  TO lr_awart.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0241' )  TO lr_awart.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0424' )  TO lr_awart.
 
 
   "<<--------İzin türleri için kota tipleri ------>>
@@ -139,11 +131,11 @@ FUNCTION ZHR_PRT_FG001_05.
   DELETE lt_awart WHERE NOT awart IN lr_awart .
   "<<--------END CODE------>>
 
-  LOOP AT p2006 INTO DATA(ls_2006).
+  LOOP AT p2006 INTO DATA(ls_2006) WHERE SPRPS NE 'X'.
     ls_qouta-ktart    = ls_2006-ktart.
     READ TABLE lt_awart INTO DATA(ls_awart) WITH KEY qttps = ls_2006-ktart.
     ls_qouta-ktart_t = ls_awart-ktart_t.
-    ls_qouta-begda    = ls_2006-desta.
+    ls_qouta-begda    = ls_2006-begda.
     ls_qouta-endda    = ls_2006-deend.
     ls_qouta-anzhl    = ls_2006-anzhl.
     ls_qouta-kverb    = ls_2006-kverb.

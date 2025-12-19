@@ -1999,7 +1999,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_T002</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_T002-VERSI</NAME>
-       <TEXT>Sürüm___________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>040</LENGTH>
@@ -2016,7 +2015,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_T002</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_T002-TDNAME</NAME>
-       <TEXT>Metin_adı_______________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>040</LENGTH>
@@ -2079,80 +2077,6 @@
        <OUTPUT_FLD>X</OUTPUT_FLD>
       </RPY_DYFATC>
      </FIELDS>
-     <FLOW_LOGIC>
-      <RPY_DYFLOW>
-       <LINE>PROCESS BEFORE OUTPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_INITIALISIEREN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> LOOP AT EXTRACT WITH CONTROL</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  TCTRL_ZHR_PRT_T002 CURSOR NEXTLINE.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   MODULE LISTE_SHOW_LISTE.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>*</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>PROCESS AFTER INPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_EXIT_COMMAND AT EXIT-COMMAND.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_BEFORE_LOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> LOOP AT EXTRACT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   MODULE LISTE_INIT_WORKAREA.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_T002-VERSI .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_T002-TDNAME .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE SET_UPDATE_FLAG ON CHAIN-REQUEST.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   FIELD VIM_MARKED MODULE LISTE_MARK_CHECKBOX.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_T002-VERSI .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE LISTE_UPDATE_LISTE.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_AFTER_LOOP.</LINE>
-      </RPY_DYFLOW>
-     </FLOW_LOGIC>
     </item>
     <item>
      <HEADER>
@@ -2262,7 +2186,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_V010</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_V010-SRCID</NAME>
-       <TEXT>Süreç_numarası__________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>040</LENGTH>
@@ -2279,7 +2202,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_V010</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_V010-SRCID_T</NAME>
-       <TEXT>Süreç_tanımı____________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>040</LENGTH>
@@ -2411,86 +2333,6 @@
        <OUTPUT_FLD>X</OUTPUT_FLD>
       </RPY_DYFATC>
      </FIELDS>
-     <FLOW_LOGIC>
-      <RPY_DYFLOW>
-       <LINE>PROCESS BEFORE OUTPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE liste_initialisieren.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  LOOP AT extract WITH CONTROL</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   tctrl_zhr_prt_v010 CURSOR nextline.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE liste_show_liste.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>*</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>PROCESS AFTER INPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE liste_exit_command AT EXIT-COMMAND.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE liste_before_loop.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  LOOP AT extract.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE liste_init_workarea.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      FIELD zhr_prt_v010-srcid .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      FIELD zhr_prt_v010-srcid_t .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      FIELD zhr_prt_v010-activ .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      FIELD zhr_prt_v010-nrnr .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      MODULE set_update_flag ON CHAIN-REQUEST.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD vim_marked MODULE liste_mark_checkbox.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      FIELD zhr_prt_v010-srcid .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      MODULE liste_update_liste.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE liste_after_loop.</LINE>
-      </RPY_DYFLOW>
-     </FLOW_LOGIC>
     </item>
     <item>
      <HEADER>
@@ -2538,7 +2380,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>ZHR_PRT_VONAYCI-SRCID</NAME>
-       <TEXT>Süreç_numarası______</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>020</LENGTH>
@@ -2671,7 +2512,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_VONAYCI</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_VONAYCI-PERNR</NAME>
-       <TEXT>Pers.no.________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>040</LENGTH>
@@ -2775,7 +2615,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_VONAYCI</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZHR_PRT_VONAYCI-ENAME</NAME>
-       <TEXT>________________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>040</LENGTH>
@@ -2830,92 +2669,6 @@
        <DICT_I_FKY>X</DICT_I_FKY>
       </RPY_DYFATC>
      </FIELDS>
-     <FLOW_LOGIC>
-      <RPY_DYFLOW>
-       <LINE>PROCESS BEFORE OUTPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE liste_initialisieren.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  LOOP AT extract WITH CONTROL</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   tctrl_zhr_prt_vonayci CURSOR nextline.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE liste_show_liste.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE fill_substflds.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>*</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>PROCESS AFTER INPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE liste_exit_command AT EXIT-COMMAND.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE liste_before_loop.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  LOOP AT extract.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE liste_init_workarea.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      FIELD zhr_prt_vonayci-pernr .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      FIELD zhr_prt_vonayci-ename .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      FIELD zhr_prt_vonayci-zapp1 .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      FIELD zhr_prt_vonayci-zapp2 .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      MODULE set_update_flag ON CHAIN-REQUEST.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      MODULE complete_zhr_prt_vonayci ON CHAIN-REQUEST.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD vim_marked MODULE liste_mark_checkbox.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      FIELD zhr_prt_vonayci-pernr .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      MODULE liste_update_liste.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE liste_after_loop.</LINE>
-      </RPY_DYFLOW>
-     </FLOW_LOGIC>
     </item>
     <item>
      <HEADER>
@@ -2963,7 +2716,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>ZHR_PRT_VONYIK-SRCID</NAME>
-       <TEXT>Süreç_numarası______</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>020</LENGTH>
@@ -3096,7 +2848,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_VONYIK</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_VONYIK-ORGSVY</NAME>
-       <TEXT>O.S.____________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>040</LENGTH>
@@ -3113,7 +2864,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_VONYIK</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_VONYIK-SEQNR</NAME>
-       <TEXT>Sıra_no.________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>040</LENGTH>
@@ -3191,7 +2941,6 @@
        <MODIFIC>X</MODIFIC>
        <OUTPUT_FLD>X</OUTPUT_FLD>
        <REQU_ENTRY>N</REQU_ENTRY>
-       <DICT_I_VAL>X</DICT_I_VAL>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
@@ -3239,7 +2988,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_VONYIK</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZHR_PRT_VONYIK-STEXT</NAME>
-       <TEXT>________________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>040</LENGTH>
@@ -3252,98 +3000,6 @@
        <REQU_ENTRY>N</REQU_ENTRY>
       </RPY_DYFATC>
      </FIELDS>
-     <FLOW_LOGIC>
-      <RPY_DYFLOW>
-       <LINE>PROCESS BEFORE OUTPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_INITIALISIEREN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> LOOP AT EXTRACT WITH CONTROL</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  TCTRL_ZHR_PRT_VONYIK CURSOR NEXTLINE.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   MODULE LISTE_SHOW_LISTE.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE FILL_SUBSTFLDS.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>*</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>PROCESS AFTER INPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_EXIT_COMMAND AT EXIT-COMMAND.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_BEFORE_LOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> LOOP AT EXTRACT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   MODULE LISTE_INIT_WORKAREA.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_VONYIK-ORGSVY .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_VONYIK-SEQNR .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_VONYIK-PLANS .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_VONYIK-STEXT .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE SET_UPDATE_FLAG ON CHAIN-REQUEST.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE COMPLETE_ZHR_PRT_VONYIK ON CHAIN-REQUEST.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   FIELD VIM_MARKED MODULE LISTE_MARK_CHECKBOX.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_VONYIK-ORGSVY .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_VONYIK-SEQNR .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_VONYIK-PLANS .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE LISTE_UPDATE_LISTE.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_AFTER_LOOP.</LINE>
-      </RPY_DYFLOW>
-     </FLOW_LOGIC>
     </item>
     <item>
      <HEADER>
@@ -3391,7 +3047,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>ZHR_PRT_VSTELL-SRCID</NAME>
-       <TEXT>Süreç_numarası______</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>020</LENGTH>
@@ -3524,7 +3179,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_VSTELL</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_VSTELL-APTYP</NAME>
-       <TEXT>Onaycı_tipi_____________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>040</LENGTH>
@@ -3631,7 +3285,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_VSTELL</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZHR_PRT_VSTELL-STEXT</NAME>
-       <TEXT>________________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>040</LENGTH>
@@ -3644,92 +3297,6 @@
        <REQU_ENTRY>N</REQU_ENTRY>
       </RPY_DYFATC>
      </FIELDS>
-     <FLOW_LOGIC>
-      <RPY_DYFLOW>
-       <LINE>PROCESS BEFORE OUTPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_INITIALISIEREN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> LOOP AT EXTRACT WITH CONTROL</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  TCTRL_ZHR_PRT_VSTELL CURSOR NEXTLINE.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   MODULE LISTE_SHOW_LISTE.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE FILL_SUBSTFLDS.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>*</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>PROCESS AFTER INPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_EXIT_COMMAND AT EXIT-COMMAND.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_BEFORE_LOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> LOOP AT EXTRACT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   MODULE LISTE_INIT_WORKAREA.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_VSTELL-APTYP .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_VSTELL-STELL .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_VSTELL-STEXT .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE SET_UPDATE_FLAG ON CHAIN-REQUEST.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE COMPLETE_ZHR_PRT_VSTELL ON CHAIN-REQUEST.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   FIELD VIM_MARKED MODULE LISTE_MARK_CHECKBOX.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_VSTELL-APTYP .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_VSTELL-STELL .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE LISTE_UPDATE_LISTE.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_AFTER_LOOP.</LINE>
-      </RPY_DYFLOW>
-     </FLOW_LOGIC>
     </item>
     <item>
      <HEADER>
@@ -3839,7 +3406,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_V007</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_V007-AWART</NAME>
-       <TEXT>Dvs/Dvm_________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>040</LENGTH>
@@ -3856,7 +3422,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_V007</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_V007-ATEXT</NAME>
-       <TEXT>Dvm/devamsızlık_mtn.____________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>040</LENGTH>
@@ -3873,7 +3438,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_V007</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_V007-MAXDY</NAME>
-       <TEXT>Tkv.gü._________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>040</LENGTH>
@@ -3955,86 +3519,6 @@
        <OUTPUT_FLD>X</OUTPUT_FLD>
       </RPY_DYFATC>
      </FIELDS>
-     <FLOW_LOGIC>
-      <RPY_DYFLOW>
-       <LINE>PROCESS BEFORE OUTPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_INITIALISIEREN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> LOOP AT EXTRACT WITH CONTROL</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  TCTRL_ZHR_PRT_V007 CURSOR NEXTLINE.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   MODULE LISTE_SHOW_LISTE.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>*</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>PROCESS AFTER INPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_EXIT_COMMAND AT EXIT-COMMAND.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_BEFORE_LOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> LOOP AT EXTRACT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   MODULE LISTE_INIT_WORKAREA.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_V007-AWART .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_V007-ATEXT .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_V007-MAXDY .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE SET_UPDATE_FLAG ON CHAIN-REQUEST.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE COMPLETE_ZHR_PRT_V007 ON CHAIN-REQUEST.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   FIELD VIM_MARKED MODULE LISTE_MARK_CHECKBOX.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_V007-AWART .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE LISTE_UPDATE_LISTE.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_AFTER_LOOP.</LINE>
-      </RPY_DYFLOW>
-     </FLOW_LOGIC>
     </item>
     <item>
      <HEADER>
@@ -4144,7 +3628,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_V007</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_V007-AWART</NAME>
-       <TEXT>Dvs/Dvm_________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>040</LENGTH>
@@ -4161,7 +3644,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_V007</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_V007-ATEXT</NAME>
-       <TEXT>Dvm/devamsızlık_mtn.____________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>040</LENGTH>
@@ -4178,7 +3660,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_V007</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_V007-MAXDY</NAME>
-       <TEXT>Tkv.gü._________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>040</LENGTH>
@@ -4260,86 +3741,6 @@
        <OUTPUT_FLD>X</OUTPUT_FLD>
       </RPY_DYFATC>
      </FIELDS>
-     <FLOW_LOGIC>
-      <RPY_DYFLOW>
-       <LINE>PROCESS BEFORE OUTPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_INITIALISIEREN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> LOOP AT EXTRACT WITH CONTROL</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  TCTRL_ZHR_PRT_V007 CURSOR NEXTLINE.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   MODULE LISTE_SHOW_LISTE.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>*</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>PROCESS AFTER INPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_EXIT_COMMAND AT EXIT-COMMAND.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_BEFORE_LOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> LOOP AT EXTRACT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   MODULE LISTE_INIT_WORKAREA.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_V007-AWART .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_V007-ATEXT .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_V007-MAXDY .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE SET_UPDATE_FLAG ON CHAIN-REQUEST.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE COMPLETE_ZHR_PRT_V007 ON CHAIN-REQUEST.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   FIELD VIM_MARKED MODULE LISTE_MARK_CHECKBOX.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD ZHR_PRT_V007-AWART .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE LISTE_UPDATE_LISTE.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE> MODULE LISTE_AFTER_LOOP.</LINE>
-      </RPY_DYFLOW>
-     </FLOW_LOGIC>
     </item>
     <item>
      <HEADER>
@@ -4387,7 +3788,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>ZHR_PRT_VADMIN-SRCID</NAME>
-       <TEXT>Süreç_numarası______</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>020</LENGTH>
@@ -4520,7 +3920,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_VADMIN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_VADMIN-SEQNR</NAME>
-       <TEXT>Sıra_no.________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>040</LENGTH>
@@ -4537,7 +3936,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_VADMIN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_VADMIN-PERNR</NAME>
-       <TEXT>Pers.no.________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>040</LENGTH>
@@ -4554,7 +3952,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_VADMIN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZHR_PRT_VADMIN-ENAME</NAME>
-       <TEXT>Çalışan/başvuran_adı____________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>040</LENGTH>
@@ -4625,7 +4022,6 @@
        <CONT_NAME>TCTRL_ZHR_PRT_VADMIN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZHR_PRT_VADMIN-ENAME</NAME>
-       <TEXT>________________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>040</LENGTH>
@@ -4638,89 +4034,6 @@
        <REQU_ENTRY>N</REQU_ENTRY>
       </RPY_DYFATC>
      </FIELDS>
-     <FLOW_LOGIC>
-      <RPY_DYFLOW>
-       <LINE>PROCESS BEFORE OUTPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE liste_initialisieren.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  LOOP AT extract WITH CONTROL</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>   tctrl_zhr_prt_vadmin CURSOR nextline.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE liste_show_liste.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE fill_substflds.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>*</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>PROCESS AFTER INPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE liste_exit_command AT EXIT-COMMAND.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE liste_before_loop.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  LOOP AT extract.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    MODULE liste_init_workarea.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      FIELD zhr_prt_vadmin-seqnr .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      FIELD zhr_prt_vadmin-pernr .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      FIELD zhr_prt_vadmin-ename .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      MODULE set_update_flag ON CHAIN-REQUEST.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      MODULE complete_zhr_prt_vadmin ON CHAIN-REQUEST.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    FIELD vim_marked MODULE liste_mark_checkbox.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    CHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      FIELD zhr_prt_vadmin-seqnr .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      MODULE liste_update_liste.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>    ENDCHAIN.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  ENDLOOP.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE liste_after_loop.</LINE>
-      </RPY_DYFLOW>
-     </FLOW_LOGIC>
     </item>
    </DYNPROS>
   </asx:values>

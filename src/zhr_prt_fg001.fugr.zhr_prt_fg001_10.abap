@@ -170,7 +170,8 @@ FUNCTION zhr_prt_fg001_10.
                                    USING  lv_statu
                                           is_leave-tlpid
                                           is_leave-pernr
-                                          'INS'.
+                                          'INS'
+                                CHANGING <fs_5> .
       ENDIF.
 
       READ TABLE et_return TRANSPORTING NO FIELDS WITH KEY type = 'E'

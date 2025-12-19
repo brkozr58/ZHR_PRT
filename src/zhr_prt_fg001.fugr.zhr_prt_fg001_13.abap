@@ -152,8 +152,10 @@ FUNCTION zhr_prt_fg001_13.
 *       i_statu = '01' " Onay bekleyen talepler
       IMPORTING
         et_list = lt_list.
-
-    DELETE lt_list WHERE NOT statu EQ '03' AND statu EQ '05' .
+    DATA : lr_statu TYPE RANGE OF zhr_prt_statu .
+    APPEND VALUE #( sign = 'I' option = 'EQ' low = '01' ) TO lr_statu.
+    APPEND VALUE #( sign = 'I' option = 'EQ' low = '04' ) TO lr_statu.
+    DELETE lt_list WHERE NOT ( statu IN lr_statu[]  ).
     LOOP AT lt_list INTO DATA(ls_list).
       LOOP AT psp ASSIGNING FIELD-SYMBOL(<ls_psp>) WHERE datum BETWEEN ls_list-begda AND ls_list-endda.
         <ls_psp>-awart = ls_list-awart.
@@ -189,11 +191,19 @@ FUNCTION zhr_prt_fg001_13.
                               holiday_id   = day_attributes[ date = ls-datum ]-holiday_id
                               holiday__t   = day_attributes[ date = ls-datum ]-txt_long
                               weekday_l    = day_attributes[ date = ls-datum ]-weekday_l
-                              freeday      = day_attributes[ date = ls-datum ]-freeday
+*                              freeday      = day_attributes[ date = ls-datum ]-freeday
                               holiday      = day_attributes[ date = ls-datum ]-holiday
-
                              )
                            ) .
+
+    LOOP AT psp INTO DATA(ls_psp) WHERE pernr EQ ls_pernr-pernr AND tpkla = 0.
+      LOOP AT lt_wschedule ASSIGNING FIELD-SYMBOL(<fs_ws>) WHERE pernr EQ ls_psp-pernr AND datum EQ ls_psp-datum. ENDLOOP.
+      IF sy-subrc EQ 0 .
+        <fs_ws>-freeday = 'X'.
+      ENDIF.
+    ENDLOOP.
+
+
     APPEND LINES OF lt_wschedule TO et_wschedule.
 
 

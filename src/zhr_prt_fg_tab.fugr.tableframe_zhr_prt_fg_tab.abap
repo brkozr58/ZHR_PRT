@@ -1,7 +1,5 @@
 *---------------------------------------------------------------------*
 *    program for:   TABLEFRAME_ZHR_PRT_FG_TAB
-*   generation date: 22.10.2025 at 21:38:58
-*   view maintenance generator version: #001407#
 *---------------------------------------------------------------------*
 FUNCTION TABLEFRAME_ZHR_PRT_FG_TAB     .
 
