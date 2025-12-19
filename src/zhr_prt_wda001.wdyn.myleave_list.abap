@@ -89,12 +89,14 @@ METHOD onactioncreate_leave .
   DATA lo_el_all TYPE REF TO if_wd_context_element.
 
 
-  DATA : lo_window_manager TYPE REF TO if_wd_window_manager ,
-         lo_api_component  TYPE REF TO if_wd_component ,
-         lo_window         TYPE REF TO if_wd_window ,
-         lt_buttons        TYPE wdr_popup_button_list ,
-         ls_canc_action    TYPE wdr_popup_button_action ,
-         ls_s_pers         TYPE wd_this->element_s_pers .
+  DATA : lo_window_manager TYPE REF TO if_wd_window_manager,
+         lo_api_component  TYPE REF TO if_wd_component,
+         lo_window         TYPE REF TO if_wd_window,
+         lt_buttons        TYPE wdr_popup_button_list,
+         ls_canc_action    TYPE wdr_popup_button_action.
+
+
+  DATA : ls_s_pers TYPE wd_this->element_s_pers .
 
 
   DEFINE get_static_attributes.
@@ -112,13 +114,13 @@ METHOD onactioncreate_leave .
 
   get_static_attributes : wd_this->wdctx_s_pers ls_s_pers.
 
-*  wd_this->fire_out_create_plg( iv_pernr =  ls_s_pers-pernr ).
-
 
   lo_api_component           = wd_comp_controller->wd_get_api( ).
   lo_window_manager          = lo_api_component->get_window_manager( ).
   ls_canc_action-action_name = '*'.
-  lt_buttons                 = lo_window_manager->get_buttons_close( default_button = if_wd_window=>co_button_close ).
+  lt_buttons                 = lo_window_manager->get_buttons_close(
+      default_button       = if_wd_window=>co_button_close
+   ).
 
   lo_window                  = lo_window_manager->create_and_open_popup(
       window_name          = 'W_CREATE_LEAVE'

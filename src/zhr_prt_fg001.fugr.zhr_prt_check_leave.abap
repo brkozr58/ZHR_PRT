@@ -173,6 +173,8 @@ FUNCTION zhr_prt_check_leave.
                                  lv_msgno
                                  ls_return .
     ENDLOOP.
+    READ TABLE et_return TRANSPORTING NO FIELDS WITH KEY type = 'E'.
+    CHECK sy-subrc NE 0 .
   ENDIF.
 
   IF i_tlpid IS INITIAL .
@@ -202,7 +204,7 @@ FUNCTION zhr_prt_check_leave.
     IF cs_leave-awart NE '0204'.
       lv_kaltg = cs_leave-kaltg.
       LOOP AT lt_t007 INTO DATA(ls_t007) WHERE awart EQ cs_leave-awart  .
-        LOOP AT et_list INTO DATA(ls_temp) WHERE not ( tlpid IN lr_tlpid[] )
+        LOOP AT et_list INTO DATA(ls_temp) WHERE NOT ( tlpid IN lr_tlpid[] )
                                              AND awart EQ ls_t007-awart.
           ADD ls_temp-kaltg TO lv_kaltg.
         ENDLOOP.

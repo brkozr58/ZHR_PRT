@@ -65,6 +65,37 @@ METHOD get_pers_info_head .
                    wd_this->wdctx_pers_info  ls_pers_info  .
 ENDMETHOD.
 
+METHOD set_message_list .
+
+  DATA lo_api_controller     TYPE REF TO if_wd_controller.
+  DATA lo_message_manager    TYPE REF TO if_wd_message_manager.
+  DATA : ls_msg TYPE symsg.
+
+  lo_api_controller ?= wd_this->wd_get_api( ).
+  lo_message_manager = lo_api_controller->get_message_manager( ).
+
+
+  LOOP AT t_return INTO DATA(ls_return).
+    ls_msg-msgid  = ls_return-ID.
+    ls_msg-msgno  = ls_return-NUMBER.
+    ls_msg-msgty  = ls_return-TYPE.
+    ls_msg-msgv1  = ls_return-MESSAGE_V1.
+    ls_msg-msgv2  = ls_return-MESSAGE_V2.
+    ls_msg-msgv3  = ls_return-MESSAGE_V3.
+    ls_msg-msgv4  = ls_return-MESSAGE_V4.
+
+    lo_message_manager->report_t100_message(
+         msgid                     = ls_msg-msgid
+         msgno                     = ls_msg-msgno
+         msgty                     = ls_msg-msgty
+         p1                        = ls_msg-msgv1
+         p2                        = ls_msg-msgv2
+         p3                        = ls_msg-msgv3
+         p4                        = ls_msg-msgv4 ).
+  ENDLOOP.
+
+ENDMETHOD.
+
 METHOD vekalet_set_button .
 
   DATA lo_nd_all TYPE REF TO if_wd_context_node.
