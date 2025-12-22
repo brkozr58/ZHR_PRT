@@ -15,21 +15,23 @@ FUNCTION zhr_prt_fg001_15.
          cx_doc_bcs TYPE REF TO cx_document_bcs,
          lv_text    TYPE string.
 
-  DATA : document     TYPE REF TO cl_document_bcs,
-         sent_to_all  TYPE os_boolean,
-         send_request TYPE REF TO cl_bcs,
-         sender       TYPE REF TO if_sender_bcs,
-         recipient    TYPE REF TO if_recipient_bcs,
-         att_type     TYPE soodk-objtp VALUE 'HTM',
-         l_receiver   TYPE comm_id_long,
-         lv_subject   TYPE  string,
-         l_cc         TYPE os_boolean,
-         l_bcc        TYPE os_boolean,
-         ls_return    TYPE bapireturn1,
-         result       TYPE os_boolean,
-         lt_lines     TYPE tlinetab,
+  DATA : document          TYPE REF TO cl_document_bcs,
+         sent_to_all       TYPE os_boolean,
+         send_request      TYPE REF TO cl_bcs,
+         sender            TYPE REF TO if_sender_bcs,
+         recipient         TYPE REF TO if_recipient_bcs,
+         att_type          TYPE soodk-objtp VALUE 'HTM',
+         l_receiver        TYPE comm_id_long,
+         lv_subject        TYPE  string,
+         l_cc              TYPE os_boolean,
+         l_bcc             TYPE os_boolean,
+         ls_return         TYPE bapireturn1,
+         result            TYPE os_boolean,
+         lt_lines          TYPE tlinetab,
          lv_dg(5)              ,
-         lt_text      TYPE  bcsy_text.
+         lt_text           TYPE  bcsy_text,
+         lt_split          TYPE TABLE OF tdline,
+         lv_char1000(1000) TYPE c.
 
   DATA langu LIKE sy-langu VALUE 'T'.
   SET LOCALE LANGUAGE  langu.
@@ -40,7 +42,27 @@ FUNCTION zhr_prt_fg001_15.
   LOOP AT lt_lines ASSIGNING FIELD-SYMBOL(<fs>).
     LOOP AT t_param INTO DATA(s_param).
       lv_dg = '&' && CONV char2( sy-tabix ) && '&' .
-      REPLACE ALL OCCURRENCES OF lv_dg IN <fs>-tdline WITH s_param-param.
+      SEARCH <fs>-tdline  FOR lv_dg .
+      IF sy-subrc EQ 0 .
+        IF strlen( s_param-param ) GT 100.
+          REPLACE ALL OCCURRENCES OF lv_dg IN <fs>-tdline WITH ' '.
+          lv_char1000 = s_param-param.
+          CALL FUNCTION 'RKD_WORD_WRAP'
+            EXPORTING
+              textline            = lv_char1000
+              outputlen           = 100
+            TABLES
+              out_lines           = lt_split
+            EXCEPTIONS
+              outputlen_too_large = 1
+              OTHERS              = 2.
+          LOOP AT lt_split INTO DATA(ls_split) .
+            APPEND CONV so_text255( ls_split ) TO lt_text.
+          ENDLOOP.
+        ELSE.
+          REPLACE ALL OCCURRENCES OF lv_dg IN <fs>-tdline WITH s_param-param.
+        ENDIF.
+      ENDIF.
     ENDLOOP.
     APPEND CONV so_text255( <fs>-tdline ) TO lt_text.
   ENDLOOP.

@@ -558,8 +558,8 @@ FORM append_approver  TABLES pt_approvers STRUCTURE zhr_prt_s014
           plans~stext AS plans_t,
           t1~stell,
           stell~stext AS stell_t,
-          CAST( ( ' ' ) AS CHAR( 30 ) )  AS orgsvy
 *          zhrorg~orgsvy AS orgsvy
+          CAST( ( ' ' )  AS CHAR( 2 ) ) AS orgsvy
         FROM        pa0001  AS t1
         INNER  JOIN hrp1000 AS plans
           ON    plans~plvar EQ '01'
@@ -606,7 +606,9 @@ FORM append_approver  TABLES pt_approvers STRUCTURE zhr_prt_s014
       ls_approver-aptyp = aptyp.
     ENDIF.
     " 70 seviyesi sonrası için gmy gm drktr bulma
-    IF NOT ( per_orgsvy LT '70' ) AND aptyp  EQ 'ONY' AND ls_approver-orgsvy LE '30'.
+*    IF   per_orgsvy LT '70'   AND aptyp  EQ 'ONY' AND ls_approver-orgsvy LE '40'.
+    IF NOT ( per_orgsvy LT '60' ) AND aptyp  EQ 'ONY' AND ls_approver-orgsvy LE '40'.
+*    IF NOT ( per_orgsvy LT '70' ) AND aptyp  EQ 'ONY' AND ls_approver-orgsvy LE '40'.
       CHECK 1 = 2 .
     ENDIF.
     IF ls_approver-orgsvy LE '60' AND aptyp EQ 'ONY' AND cv_seqnr GT 2 .
