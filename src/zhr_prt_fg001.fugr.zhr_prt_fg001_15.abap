@@ -30,7 +30,7 @@ FUNCTION zhr_prt_fg001_15.
          lt_lines          TYPE tlinetab,
          lv_dg(5)              ,
          lt_text           TYPE  bcsy_text,
-         lt_split          TYPE TABLE OF tdline,
+         lt_split          TYPE TABLE OF char100,
          lv_char1000(1000) TYPE c.
 
   DATA langu LIKE sy-langu VALUE 'T'.
@@ -40,6 +40,7 @@ FUNCTION zhr_prt_fg001_15.
   CHECK lt_lines IS NOT INITIAL .
 
   LOOP AT lt_lines ASSIGNING FIELD-SYMBOL(<fs>).
+    REFRESH lt_split.
     LOOP AT t_param INTO DATA(s_param).
       lv_dg = '&' && CONV char2( sy-tabix ) && '&' .
       SEARCH <fs>-tdline  FOR lv_dg .
@@ -57,14 +58,19 @@ FUNCTION zhr_prt_fg001_15.
               outputlen_too_large = 1
               OTHERS              = 2.
           LOOP AT lt_split INTO DATA(ls_split) .
-            APPEND CONV so_text255( ls_split ) TO lt_text.
+            DATA(lv_len) = strlen( ls_split ).
+            SHIFT ls_split RIGHT DELETING TRAILING space.
+            SHIFT ls_split LEFT DELETING LEADING space.
+            APPEND ls_split(lv_len) TO lt_text.
           ENDLOOP.
         ELSE.
           REPLACE ALL OCCURRENCES OF lv_dg IN <fs>-tdline WITH s_param-param.
         ENDIF.
       ENDIF.
     ENDLOOP.
-    APPEND CONV so_text255( <fs>-tdline ) TO lt_text.
+    IF lt_split[] IS INITIAL .
+      APPEND CONV so_text255( <fs>-tdline ) TO lt_text.
+    ENDIF.
   ENDLOOP.
 
 

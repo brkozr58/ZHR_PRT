@@ -191,23 +191,25 @@ FUNCTION zhr_prt_check_leave.
          lv_abrtg TYPE p2001-abrtg,
          lv_abwtg TYPE p2001-abwtg.
   IF lt_t007[] IS NOT INITIAL .
-    lv_begda = cs_leave-begda(4) && '0101'.
-    lv_endda = cs_leave-begda(4) && '1231'.
-    REFRESH : et_list.
-
-    PERFORM get_leave_list TABLES et_list lr_pernr lr_awart
-                            USING i_srcid
-                                  lv_begda
-                                  lv_endda.
-    DELETE et_list WHERE statu EQ '03' OR statu EQ '05'.
+*    lv_begda = cs_leave-begda(4) && '0101'.
+*    lv_endda = cs_leave-begda(4) && '1231'.
+*    REFRESH : et_list.
+*
+*    PERFORM get_leave_list TABLES et_list lr_pernr lr_awart
+*                            USING i_srcid
+*                                  lv_begda
+*                                  lv_endda.
+*    DELETE et_list WHERE statu EQ '03' OR statu EQ '05'.
 
     IF cs_leave-awart NE '0204'.
       lv_kaltg = cs_leave-kaltg.
       LOOP AT lt_t007 INTO DATA(ls_t007) WHERE awart EQ cs_leave-awart  .
-        LOOP AT et_list INTO DATA(ls_temp) WHERE NOT ( tlpid IN lr_tlpid[] )
-                                             AND awart EQ ls_t007-awart.
-          ADD ls_temp-kaltg TO lv_kaltg.
-        ENDLOOP.
+        lv_kaltg = cs_leave-kaltg.
+*        LOOP AT et_list INTO DATA(ls_temp) WHERE NOT ( tlpid IN lr_tlpid[] )
+*                                             AND awart EQ ls_t007-awart.
+*          ADD ls_temp-kaltg TO lv_kaltg.
+*        ENDLOOP.
+        lv_kaltg = cs_leave-kaltg.
 
         IF ls_t007-maxdy LT lv_kaltg.
           CLEAR ls_return.

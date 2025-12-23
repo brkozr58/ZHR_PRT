@@ -906,7 +906,13 @@ FORM operation_leave_data TABLES et_return  STRUCTURE  zhr_prt_sreturn
         et_return = lt_return[]
       CHANGING
         cs_leave  = cs_leave.
-    APPEND LINES OF lt_return TO et_return.
+
+    READ TABLE lt_return TRANSPORTING NO FIELDS WITH KEY type = 'E'.
+    IF sy-subrc EQ 0.
+      et_return[] = lt_return[].
+    ELSE.
+      APPEND LINES OF lt_return TO et_return.
+    ENDIF.
     READ TABLE lt_return TRANSPORTING NO FIELDS WITH KEY type = 'E'.
     CHECK sy-subrc NE 0 .
 
