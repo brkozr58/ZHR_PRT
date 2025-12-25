@@ -31,8 +31,8 @@ FUNCTION zhr_prt_fg001_11.
 
   SET LOCALE LANGUAGE  langu.
 
-  lv_begda   = sy-datum - 80.
-  lv_endda   = sy-datum + 80.
+  lv_begda   = sy-datum - 100.
+*  lv_endda   = sy-datum + 80.
 
 
   IF i_srcid IS INITIAL  .

@@ -6,9 +6,8 @@ FUNCTION zhr_prt_fg001_22.
 *"     VALUE(I_MESAJTUR) TYPE  CHAR3 DEFAULT 'PRT'
 *"  EXPORTING
 *"     VALUE(E_SUBRC) TYPE  SUBRC
-*"     VALUE(ET_RETURN) TYPE  ZHR_PRT_TRETURN
 *"----------------------------------------------------------------------
-*  DATA : lv_msj TYPE string .
+  DATA : lv_msj TYPE string .
 *
 *  lv_msj = i_mesaj.
 *

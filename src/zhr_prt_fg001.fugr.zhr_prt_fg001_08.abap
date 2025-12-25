@@ -60,8 +60,8 @@ FUNCTION zhr_prt_fg001_08.
   READ TABLE et_return TRANSPORTING NO FIELDS WITH KEY type = 'E'.
   CHECK sy-subrc NE 0 .
   "<<--------END CODE------>>
-
-  IF ( sy-datum - ls_leave-begda ) GT 3 .
+  " Puantör 3 gün kuralına takılmasın
+  IF ( sy-datum - ls_leave-begda ) GT 3 AND cr_pernr IS INITIAL  .
     CLEAR ls_return.
     PERFORM add_message TABLES et_return
                          USING i_srcid

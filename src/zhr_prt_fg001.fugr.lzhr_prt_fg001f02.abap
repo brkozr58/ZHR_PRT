@@ -96,6 +96,8 @@
                   CHANGING cv_error
                            cv_message.
 
+    DATA : lv_rols TYPE text1000 .
+
     DATA : BEGIN OF ls_errors ,
              personnelno      TYPE string,
              errormessage     TYPE string,
@@ -118,6 +120,29 @@
              timestamp TYPE string,
            END OF ls_rest,
            lv_aut TYPE string.
+    DATA : et_persons TYPE  zhr_prt_tt022 .
+    DATA : lt_rolls TYPE TABLE OF  zhr_prt_t008 .
+    CALL FUNCTION 'ZHR_PRT_FG001_20'
+      EXPORTING
+        i_pernr    = ps_pers-pernr
+        i_datum    = sy-datum
+      IMPORTING
+        et_persons = et_persons.
+    IF et_persons[] IS NOT INITIAL .
+      SELECT * FROM zhr_prt_t008 INTO TABLE lt_rolls
+        FOR ALL ENTRIES IN  et_persons
+          WHERE aptyp EQ et_persons-aptyp
+            AND head  EQ et_persons-head.
+      LOOP AT lt_rolls INTO DATA(ls_rolls) .
+        IF sy-tabix EQ 1 .
+          pv_oper = ls_rolls-zzrol.
+        ELSE .
+          CONCATENATE pv_oper ls_rolls-zzrol INTO pv_oper SEPARATED BY ','.
+        ENDIF.
+      ENDLOOP.
+    ENDIF.
+
+
 
     CONCATENATE 'Bearer' pv_token INTO lv_aut SEPARATED BY space ..
 
@@ -153,7 +178,8 @@
                   '"lastName" : "'    ps_pers-nachn '",'
                   '"email" : "'       ps_pers-zemail '",'
                   '"phoneNumber" : "' ps_pers-cell   '",'
-                  '"isCreatePortalUser" : ' pv_oper
+                  '"isCreatePortalUser" : ' pv_oper '",'
+                  '"roleNames" : ' lv_rols
                '}'
             ']'
          '}' INTO  cdata.

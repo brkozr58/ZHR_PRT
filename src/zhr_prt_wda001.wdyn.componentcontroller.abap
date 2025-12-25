@@ -76,13 +76,13 @@ METHOD set_message_list .
 
 
   LOOP AT t_return INTO DATA(ls_return).
-    ls_msg-msgid  = ls_return-ID.
-    ls_msg-msgno  = ls_return-NUMBER.
-    ls_msg-msgty  = ls_return-TYPE.
-    ls_msg-msgv1  = ls_return-MESSAGE_V1.
-    ls_msg-msgv2  = ls_return-MESSAGE_V2.
-    ls_msg-msgv3  = ls_return-MESSAGE_V3.
-    ls_msg-msgv4  = ls_return-MESSAGE_V4.
+    ls_msg-msgid  = ls_return-id.
+    ls_msg-msgno  = ls_return-number.
+    ls_msg-msgty  = ls_return-type.
+    ls_msg-msgv1  = ls_return-message_v1.
+    ls_msg-msgv2  = ls_return-message_v2.
+    ls_msg-msgv3  = ls_return-message_v3.
+    ls_msg-msgv4  = ls_return-message_v4.
 
     lo_message_manager->report_t100_message(
          msgid                     = ls_msg-msgid

@@ -1332,10 +1332,6 @@
        <PARAMETER>E_SUBRC</PARAMETER>
        <TYP>SUBRC</TYP>
       </RSEXP>
-      <RSEXP>
-       <PARAMETER>ET_RETURN</PARAMETER>
-       <TYP>ZHR_PRT_TRETURN</TYP>
-      </RSEXP>
      </EXPORT>
      <DOCUMENTATION>
       <RSFDO>
@@ -1351,11 +1347,6 @@
        <PARAMETER>E_SUBRC</PARAMETER>
        <KIND>P</KIND>
        <STEXT>ABAP System Field: Return Code of ABAP Statements</STEXT>
-      </RSFDO>
-      <RSFDO>
-       <PARAMETER>ET_RETURN</PARAMETER>
-       <KIND>P</KIND>
-       <STEXT>Portal Süreç Mesajları</STEXT>
       </RSFDO>
      </DOCUMENTATION>
     </item>

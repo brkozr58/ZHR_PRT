@@ -6,7 +6,7 @@
 @Metadata.ignorePropagatedAnnotations: true
 define view ZHR_PRT_CDS005
   with parameters
-    p_pernr : abap.numc( 8 ) 
+    p_pernr : abap.numc( 8 )
   as select from    pa0001 as p1
 
     inner join      t001                on t001.bukrs = p1.bukrs
@@ -41,7 +41,7 @@ define view ZHR_PRT_CDS005
       cast( ( case when( ( t554s.mintg  = 000 and t554s.maxtg = 999 ) or
                          ( t554s.mintg  = 000 and t554s.maxtg = 001 )   )
                    then 'X'  else ' ' end ) as abap.char( 1 ) ) as zhour
- 
+
 }
 
 where

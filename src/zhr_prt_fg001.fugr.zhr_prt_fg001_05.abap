@@ -29,6 +29,14 @@ FUNCTION zhr_prt_fg001_05.
         lr_statu      TYPE RANGE OF zhr_prt_statu,
         lt_list       TYPE  zhr_prt_tt017,
         lr_tlpid      TYPE RANGE OF zhr_prt_tlpid,
+*        BEGIN OF lt_awart OCCURS 0 ,
+*          qttps(10),
+*          ktart_t   TYPE t556b-ktext,
+*          awart     TYPE t554t-awart,
+*          awart_t   TYPE t554t-atext,
+*          mintg     TYPE t554s-mintg,
+*          maxtg     TYPE t554s-maxtg,
+*        END OF lt_awart,
         lt_awart TYPE TABLE OF zhr_prt_ddl005  WITH HEADER LINE  .
 
   DATA langu LIKE sy-langu VALUE 'T'.

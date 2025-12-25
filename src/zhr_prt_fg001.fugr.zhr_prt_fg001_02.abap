@@ -9,13 +9,13 @@ FUNCTION zhr_prt_fg001_02.
 *"----------------------------------------------------------------------
   TABLES : pa0000, 	t513s        ,
            pa0001,  t527x        ,
+*           zent_ta_lok           ,
            pa0002,  t528t        ,
            pa0006,  t501t        ,
            pa0021,  t503t        ,
            pa0022,  t001p        ,
            pa0041,  t001         ,
            pa0105,  t517t        ,
-*           zent_ta_lok           ,
            pa0770,  t005t        .
 
   DATA : lr_datum TYPE RANGE OF datum .

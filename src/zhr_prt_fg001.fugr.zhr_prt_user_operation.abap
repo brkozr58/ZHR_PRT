@@ -12,13 +12,19 @@ FUNCTION zhr_prt_user_operation.
 *"----------------------------------------------------------------------
   DATA : lv_error TYPE string .
   DATA : lv_message TYPE string .
+  DATA : lv_url TYPE text150.
 
 *  initial_services.
 
+  IF sy-sysid NE 'IHP'.
+    lv_url = 'http://ikportaltest.icdas.com.tr/api/v1/auth/login'.
+  ELSE.
+    lv_url = 'http://ikportal.icdas.com.tr/api/v1/auth/login'.
+  ENDIF.
   CLEAR lv_error.
   IF cv_token IS INITIAL .
     PERFORM portal_logon USING '0' 'Icdas2025*'
-                               'http://ikportaltest.icdas.com.tr/api/v1/auth/login'
+                               lv_url
                       CHANGING cv_token
                                lv_error
                                lv_message.
@@ -27,8 +33,13 @@ FUNCTION zhr_prt_user_operation.
   error = lv_error.
   message = lv_message.
   CHECK lv_error IS INITIAL .
+  IF sy-sysid NE 'IHP'.
+    lv_url = 'http://ikportaltest.icdas.com.tr/api/v1/users/transfer-from-sap'.
+  ELSE.
+    lv_url = 'http://ikportal.icdas.com.tr/api/v1/users/transfer-from-sap'.
+  ENDIF.
   PERFORM user_oper USING cv_token
-                          'http://ikportaltest.icdas.com.tr/api/v1/users/transfer-from-sap'
+                          lv_url
                           is_pers
                           i_oper
                  CHANGING lv_error

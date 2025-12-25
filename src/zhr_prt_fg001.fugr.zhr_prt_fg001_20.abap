@@ -47,9 +47,10 @@ FUNCTION zhr_prt_fg001_20.
          sachz,
     " Yönetici ise X gelecek
          CAST(  ( CASE ( ynt~objid )
-                    WHEN ' '  THEN ' '
+                    WHEN ' ' THEN ' '
                     ELSE ynt~rsign END ) AS CHAR( 1 ) ) AS  zynt ,
-         CAST( ( ' ' ) AS CHAR( 2 ) ) AS zhrorg
+*                    orgsv~orgsvy AS zhrorg
+         CAST( ( ' ' ) AS CHAR( 2 ) )  AS zhrorg
                  FROM pa0001  AS t1
       INNER JOIN hrp1000 AS stell
             ON    stell~plvar EQ '01'
@@ -133,6 +134,11 @@ FUNCTION zhr_prt_fg001_20.
     READ TABLE lt_stell INTO DATA(ls_stell) WITH KEY stell = ls_temp-stell  .
     IF sy-subrc EQ 0 . set_aptyp  ls_stell-aptyp. ENDIF.
     IF ls_pers-aptyp IS INITIAL AND ls_temp-zynt EQ 'A' . set_aptyp  'ONY'.ENDIF.
+
+    IF ls_temp-zynt EQ 'A'. " Şapkalı yöneticileri buradan ayırsın
+      ls_pers-head = 'X'.
+    ENDIF.
+
     COLLECT ls_pers INTO et_persons. CLEAR : ls_pers.
   ENDLOOP.
   SORT et_persons ASCENDING BY pernr.

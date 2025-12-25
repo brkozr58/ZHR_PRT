@@ -6,7 +6,7 @@
 @Metadata.ignorePropagatedAnnotations: true
 define view ZHR_PRT_cds003
 
-  as select from    pa2001  as t2   
+  as select from    pa2001  as t2
     inner join      pa0001  as per       on  per.pernr = t2.pernr
                                          and per.begda <= $session.system_date
                                          and per.endda >= $session.system_date
@@ -101,4 +101,4 @@ define view ZHR_PRT_cds003
                cast( ( ''  ) as abap.char( 1 ) )                                                               as ADMIN
 
 
-} 
+}

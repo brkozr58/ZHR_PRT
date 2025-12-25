@@ -129,15 +129,16 @@ FUNCTION zhr_prt_fg001_07.
          CAST(  ( CASE ( ynt~objid )
                     WHEN ' ' THEN ' '
                     ELSE ynt~rsign END ) AS CHAR( 1 ) ) AS  zynt ,
-         CAST( ( ' ' ) AS CHAR( 2 )   ) AS zhrorg
+*                    orgsv~orgsvy AS zhrorg
+         CAST( ( ' ' ) AS CHAR( 2 ) )  AS zhrorg
                  FROM pa0001  AS t1
-      INNER JOIN hrp1000 AS stell
+      LEFT JOIN hrp1000 AS stell
             ON    stell~plvar EQ '01'
               AND stell~otype EQ 'C'
               AND stell~objid EQ t1~stell
               AND stell~langu EQ @sy-langu
               AND stell~endda GE @i_datum
-      INNER JOIN hrp1000 AS plans
+      LEFT JOIN hrp1000 AS plans
             ON    plans~plvar EQ '01'
               AND plans~otype EQ 'S'
               AND plans~objid EQ t1~plans
@@ -253,7 +254,7 @@ FUNCTION zhr_prt_fg001_07.
 *               AND plvar EQ '01'
 *               AND objid EQ lv_orgeh
 *               AND endda GE i_datum.
-        IF sy-subrc EQ 0.
+*        IF sy-subrc EQ 0.
           PERFORM rh_struc_get USING 'O' lv_orgeh 'B012' i_datum CHANGING lv_plans .
           IF sy-subrc EQ 0 .
             PERFORM rh_struc_get USING 'S' lv_plans 'A008' i_datum CHANGING lv_pernr .
@@ -277,14 +278,14 @@ FUNCTION zhr_prt_fg001_07.
           ELSE.
             lv_orgeh = lv_orgeh_up.
           ENDIF.
-        ELSE.
-          PERFORM rh_struc_get USING 'O' lv_orgeh 'A002' i_datum CHANGING lv_orgeh_up .
-          IF sy-subrc NE 0 .
-            EXIT.
-          ELSE.
-            lv_orgeh = lv_orgeh_up.
-          ENDIF.
-        ENDIF.
+*        ELSE.
+*          PERFORM rh_struc_get USING 'O' lv_orgeh 'A002' i_datum CHANGING lv_orgeh_up .
+*          IF sy-subrc NE 0 .
+*            EXIT.
+*          ELSE.
+*            lv_orgeh = lv_orgeh_up.
+*          ENDIF.
+*        ENDIF.
       ENDDO.
       "<<--------END CODE------>>
 
@@ -311,7 +312,8 @@ FUNCTION zhr_prt_fg001_07.
       " ONY bulamazsan 2.zaman yöneticisini ekleme
       READ TABLE gt_zmynt INTO ls_zmynt
           WITH KEY sachx = ls_pernr-sachz.
-      IF sy-subrc EQ 0 AND lines( et_approvers ) GT 1 .
+      IF ( sy-subrc EQ 0 AND lines( et_approvers ) GT 1 ) OR
+         ( sy-subrc EQ 0 AND lines( et_approvers ) EQ 0 ).
         PERFORM append_approver TABLES et_approvers
                                  USING ls_zmynt-pernr
                                        'ZMNY'

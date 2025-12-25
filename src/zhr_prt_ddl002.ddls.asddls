@@ -6,7 +6,7 @@
 @Metadata.ignorePropagatedAnnotations: true
 define view ZHR_PRT_cds002
 
-  as select from    zhr_prt_t004 as t1  
+  as select from    zhr_prt_t004 as t1
     inner join      zhr_prt_t005 as t2        on t2.tlpid = t1.tlpid
     inner join      pa0001       as per       on  per.pernr = t2.pernr
                                               and per.begda <= $session.system_date

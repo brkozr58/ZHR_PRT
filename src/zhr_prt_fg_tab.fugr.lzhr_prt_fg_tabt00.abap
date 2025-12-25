@@ -7,6 +7,12 @@ DATA:  BEGIN OF STATUS_ZHR_PRT_T002                  .   "state vector
 DATA:  END OF STATUS_ZHR_PRT_T002                  .
 CONTROLS: TCTRL_ZHR_PRT_T002
             TYPE TABLEVIEW USING SCREEN '0001'.
+*...processing: ZHR_PRT_TROLL...................................*
+DATA:  BEGIN OF STATUS_ZHR_PRT_TROLL                 .   "state vector
+         INCLUDE STRUCTURE VIMSTATUS.
+DATA:  END OF STATUS_ZHR_PRT_TROLL                 .
+CONTROLS: TCTRL_ZHR_PRT_TROLL
+            TYPE TABLEVIEW USING SCREEN '0010'.
 *...processing: ZHR_PRT_V007....................................*
 TABLES: ZHR_PRT_V007, *ZHR_PRT_V007. "view work areas
 CONTROLS: TCTRL_ZHR_PRT_V007
@@ -24,6 +30,24 @@ DATA: BEGIN OF ZHR_PRT_V007_TOTAL OCCURS 0010.
 INCLUDE STRUCTURE ZHR_PRT_V007.
           INCLUDE STRUCTURE VIMFLAGTAB.
 DATA: END OF ZHR_PRT_V007_TOTAL.
+
+*...processing: ZHR_PRT_V008....................................*
+TABLES: ZHR_PRT_V008, *ZHR_PRT_V008. "view work areas
+CONTROLS: TCTRL_ZHR_PRT_V008
+TYPE TABLEVIEW USING SCREEN '0009'.
+DATA: BEGIN OF STATUS_ZHR_PRT_V008. "state vector
+          INCLUDE STRUCTURE VIMSTATUS.
+DATA: END OF STATUS_ZHR_PRT_V008.
+* Table for entries selected to show on screen
+DATA: BEGIN OF ZHR_PRT_V008_EXTRACT OCCURS 0010.
+INCLUDE STRUCTURE ZHR_PRT_V008.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZHR_PRT_V008_EXTRACT.
+* Table for all entries loaded from database
+DATA: BEGIN OF ZHR_PRT_V008_TOTAL OCCURS 0010.
+INCLUDE STRUCTURE ZHR_PRT_V008.
+          INCLUDE STRUCTURE VIMFLAGTAB.
+DATA: END OF ZHR_PRT_V008_TOTAL.
 
 *...processing: ZHR_PRT_V010....................................*
 TABLES: ZHR_PRT_V010, *ZHR_PRT_V010. "view work areas
@@ -117,16 +141,19 @@ DATA: END OF ZHR_PRT_VSTELL_TOTAL.
 
 *.........table declarations:.................................*
 TABLES: *ZHR_PRT_T002                  .
+TABLES: *ZHR_PRT_TROLL                 .
 TABLES: HRP1000                        .
 TABLES: PA0001                         .
 TABLES: T554S                          .
 TABLES: T554T                          .
 TABLES: ZHR_PRT_T002                   .
 TABLES: ZHR_PRT_T007                   .
+TABLES: ZHR_PRT_T008                   .
 TABLES: ZHR_PRT_T010                   .
 TABLES: ZHR_PRT_TADMIN                 .
 TABLES: ZHR_PRT_TONAYCI                .
 TABLES: ZHR_PRT_TONYIK                 .
+TABLES: ZHR_PRT_TROLL                  .
 TABLES: ZHR_PRT_TSTELL                 .
 
 * general table data declarations..............

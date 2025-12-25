@@ -27,7 +27,6 @@ METHOD onactionsave .
   DATA : lv_tlpid    TYPE zhr_prt_tlpid,
          et_return   TYPE  zhr_prt_treturn,
          ls_s_leave  TYPE wd_this->element_s_leave,
-         lt_t_return TYPE wd_this->elements_t_return,
          ls_s_pers   TYPE wd_this->element_s_pers.
 
   DEFINE get_static_attributes_table.

@@ -87,8 +87,8 @@ define view ZHR_PRT_CDS001
 
       cast( ( case  when zt1.pernr is not initial  then 'X'
                                 else '' end ) as abap.char( 1  ) )             as zoper
-} 
- 
+}
+
 union all select from pa0001       as t1
 //
   inner join          pa0000       as t0   on  t0.pernr =  t1.pernr
@@ -166,4 +166,6 @@ union all select from pa0001       as t1
 
       cast( ( case  when zt1.pernr is not initial  then 'X'
                                 else '' end ) as abap.char( 1  ) )             as zoper
-} where t1.pernr <> t1.pernr
+}
+where
+  t1.pernr <> t1.pernr

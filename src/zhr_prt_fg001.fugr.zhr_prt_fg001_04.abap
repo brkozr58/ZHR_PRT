@@ -47,7 +47,7 @@ FUNCTION zhr_prt_fg001_04.
 
   IF i_fpper IS INITIAL .
 *    lr_fpper = VALUE #( FOR ls IN lt_donem ( sign = 'I' option = 'LT' low = ls-zfpper ) ) .
-    DELETE lt_rgdir WHERE  fpper IN lr_fpper[].
+*    DELETE lt_rgdir WHERE  fpper IN lr_fpper[].
     et_rgdir = lt_rgdir.
   ELSE.
     READ TABLE lt_rgdir INTO DATA(ls_rgdir) WITH KEY fpper = i_fpper.
