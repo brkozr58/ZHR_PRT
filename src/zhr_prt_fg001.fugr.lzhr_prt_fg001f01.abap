@@ -1350,11 +1350,16 @@ FORM check_qouta TABLES pt_return STRUCTURE zhr_prt_sreturn
     IMPORTING
       et_qouta = lt_qouta.
 
+
 *  "<<--------İzin türleri için kota tipleri ------>>
   PERFORM get_awart_qouta_type TABLES lt_awart
                                 USING ps_leave-pernr.
-*  "<<--------END CODE------>>
+*  "<<-------------->>
 
+  "<<--------Onayda bekleyen izinler kota sayısı kontrlü için düşmüş gibi saysın------>>
+  PERFORM calc_portal_data TABLES lt_qouta lt_awart
+                           USING '00001' ps_leave-pernr.
+  "<<-------------->>
 
   READ TABLE lt_awart INTO DATA(ls_awart) WITH KEY awart = ps_leave-awart.
   IF sy-subrc EQ 0 AND ls_awart-qttps IS NOT INITIAL  .
@@ -1521,4 +1526,49 @@ FORM get_leave_list  TABLES   et_list STRUCTURE zhr_prt_s017_2
       WHERE ap_statu = lt_dd07t-domvalue_l.
   ENDLOOP.
 
+ENDFORM.
+*&---------------------------------------------------------------------*
+*& Form calc_portal_data
+*&---------------------------------------------------------------------*
+FORM calc_portal_data  TABLES   lt_qouta STRUCTURE zhr_prt_s011
+                                lt_awart STRUCTURE zhr_prt_ddl005
+                      USING pv_srcid pv_pernr.
+
+  DATA : lt_list       TYPE  zhr_prt_tt017.
+
+
+*  "<<--------Portal izinlerini Onayda bekleyen izinleri kotadan düş ------>>
+  CALL FUNCTION 'ZHR_PRT_FG001_06'
+    EXPORTING
+      i_srcid = pv_srcid
+      i_pernr = pv_pernr
+      i_begda = '18000101'
+      i_endda = '99991231'
+*     I_AWART =
+      i_statu = '01' " Onay bekleyen talepler
+    IMPORTING
+      et_list = lt_list.
+
+  "<<--------Portal izinlerini Onayda bekleyen izinleri kotadan düş ------>>
+  SORT lt_qouta ASCENDING BY qouta.
+  LOOP AT lt_list INTO DATA(ls_list) .
+    READ TABLE lt_awart INTO DATA(ls_awart) WITH KEY awart = ls_list-awart.
+    LOOP AT lt_qouta ASSIGNING FIELD-SYMBOL(<fs>)
+      WHERE qouta GT 0 AND ktart EQ ls_awart-qttps.
+      IF ls_list-abrtg LE <fs>-qouta.
+        <fs>-qouta = <fs>-qouta - ls_list-abrtg.
+        <fs>-kverb = <fs>-kverb + ls_list-abrtg.
+        ls_list-abrtg = ls_list-abrtg - ls_list-abrtg.
+      ELSE.
+        ls_list-abrtg = ls_list-abrtg - <fs>-qouta.
+        <fs>-kverb = <fs>-kverb + <fs>-qouta.
+        <fs>-qouta = 0 .
+      ENDIF.
+
+      IF ls_list-abrtg EQ 0 .
+        EXIT.
+      ENDIF.
+    ENDLOOP.
+  ENDLOOP.
+  "<<--------END CODE------>>
 ENDFORM.

@@ -29,14 +29,6 @@ FUNCTION zhr_prt_fg001_05.
         lr_statu      TYPE RANGE OF zhr_prt_statu,
         lt_list       TYPE  zhr_prt_tt017,
         lr_tlpid      TYPE RANGE OF zhr_prt_tlpid,
-*        BEGIN OF lt_awart OCCURS 0 ,
-*          qttps(10),
-*          ktart_t   TYPE t556b-ktext,
-*          awart     TYPE t554t-awart,
-*          awart_t   TYPE t554t-atext,
-*          mintg     TYPE t554s-mintg,
-*          maxtg     TYPE t554s-maxtg,
-*        END OF lt_awart,
         lt_awart      TYPE TABLE OF zhr_prt_ddl005  WITH HEADER LINE.
 
   DATA langu LIKE sy-langu VALUE 'T'.
@@ -157,19 +149,6 @@ FUNCTION zhr_prt_fg001_05.
     COLLECT ls_qouta  INTO et_qouta .
   ENDLOOP.
 
-*  "<<--------Portal izinlerini Onayda bekleyen izinleri kotadan düş ------>>
-  CALL FUNCTION 'ZHR_PRT_FG001_06'
-    EXPORTING
-      i_srcid = i_srcid
-      i_pernr = i_pernr
-      i_begda = '18000101'
-      i_endda = '99991231'
-*     I_AWART =
-      i_statu = '01' " Onay bekleyen talepler
-    IMPORTING
-      et_list = lt_list.
-
-
   IF i_datum IS INITIAL .
     SORT et_qouta DESCENDING BY begda endda.
     DELETE et_qouta WHERE seqnr GT 5 .
@@ -178,27 +157,9 @@ FUNCTION zhr_prt_fg001_05.
 *    SORT et_qouta DESCENDING BY begda endda.
   ENDIF.
 
-  "<<--------Portal izinlerini Onayda bekleyen izinleri kotadan düş ------>>
-  SORT et_qouta ASCENDING BY qouta.
-  LOOP AT lt_list INTO DATA(ls_list) .
-    READ TABLE lt_awart INTO ls_awart WITH KEY awart = ls_list-awart.
-    LOOP AT et_qouta ASSIGNING FIELD-SYMBOL(<fs>)
-      WHERE qouta GT 0 AND ktart EQ ls_awart-qttps.
-      IF ls_list-abrtg LE <fs>-qouta.
-        <fs>-qouta = <fs>-qouta - ls_list-abrtg.
-        <fs>-kverb = <fs>-kverb + ls_list-abrtg.
-        ls_list-abrtg = ls_list-abrtg - ls_list-abrtg.
-      ELSE.
-        ls_list-abrtg = ls_list-abrtg - <fs>-qouta.
-        <fs>-kverb = <fs>-kverb + <fs>-qouta.
-        <fs>-qouta = 0 .
-      ENDIF.
-
-      IF ls_list-abrtg EQ 0 .
-        EXIT.
-      ENDIF.
-    ENDLOOP.
-  ENDLOOP.
+  "<<--------Onayda bekleyen izinler kotadan düşmesin diye kaldırıldı------>>
+*  PERFORM calc_portal_data TABLES et_qouta lt_awart
+*                           USING i_srcid i_pernr.
   "<<--------END CODE------>>
 
   SORT et_qouta DESCENDING BY begda endda.
