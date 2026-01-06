@@ -1351,6 +1351,76 @@
      </DOCUMENTATION>
     </item>
     <item>
+     <FUNCNAME>ZHR_PRT_PAYROLL</FUNCNAME>
+     <SHORT_TEXT>Bordro zarfı pdf dosyası</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IV_PERNR</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>PERSNO</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_FORML</PARAMETER>
+       <DEFAULT>&apos;ICSF&apos;</DEFAULT>
+       <REFERENCE>X</REFERENCE>
+       <TYP>FORMU_514D</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_FPPER</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>FPPER</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>EV_DOCUMENT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>XSTRING</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EV_DOC_SIZE</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>INT4</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EV_SPOOL</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>RSPOID</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IV_PERNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Personel numarası</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_FORML</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Form adı</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_FPPER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Haciz için hesaplanan dönem</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EV_DOCUMENT</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EV_DOC_SIZE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Doğal sayı</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EV_SPOOL</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Kuyruk: Kuyruk talebi numarası</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
      <FUNCNAME>ZHR_PRT_USER_OPERATION</FUNCNAME>
      <SHORT_TEXT>Portal kullanıcısı işlemleri</SHORT_TEXT>
      <IMPORT>

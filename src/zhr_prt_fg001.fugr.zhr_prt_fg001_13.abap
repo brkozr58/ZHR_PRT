@@ -26,8 +26,22 @@ FUNCTION zhr_prt_fg001_13.
          lr_pernr          TYPE RANGE OF persno WITH HEADER LINE,
          lt_wschedule      TYPE  zhr_prt_tt012.
 
+  DATA : lr_awart2 TYPE RANGE OF awart .
+  DATA : lt_list  TYPE  zhr_prt_tt017.
+  DATA : lr_statu TYPE RANGE OF zhr_prt_statu .
+
   DATA langu LIKE sy-langu VALUE 'T'.
   SET LOCALE LANGUAGE  langu.
+
+
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0203' )  TO lr_awart2.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0204' )  TO lr_awart2.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0213' )  TO lr_awart2.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0215' )  TO lr_awart2.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0217' )  TO lr_awart2.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0241' )  TO lr_awart2.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0424' )  TO lr_awart2.
+
 
   IF i_pernr IS NOT INITIAL .
     APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = i_pernr )  TO lr_pernr.
@@ -140,7 +154,6 @@ FUNCTION zhr_prt_fg001_13.
         date_inconsistency         = 4
         OTHERS                     = 5.
 
-    DATA : lt_list  TYPE  zhr_prt_tt017.
     REFRESH lt_list.
     CALL FUNCTION 'ZHR_PRT_FG001_06'
       EXPORTING
@@ -148,14 +161,13 @@ FUNCTION zhr_prt_fg001_13.
         i_pernr = i_pernr
         i_begda = i_begda
         i_endda = i_endda
-*       I_AWART =
-*       i_statu = '01' " Onay bekleyen talepler
       IMPORTING
         et_list = lt_list.
-    DATA : lr_statu TYPE RANGE OF zhr_prt_statu .
+
     APPEND VALUE #( sign = 'I' option = 'EQ' low = '01' ) TO lr_statu.
     APPEND VALUE #( sign = 'I' option = 'EQ' low = '04' ) TO lr_statu.
     DELETE lt_list WHERE NOT ( statu IN lr_statu[]  ).
+
     LOOP AT lt_list INTO DATA(ls_list).
       LOOP AT psp ASSIGNING FIELD-SYMBOL(<ls_psp>) WHERE datum BETWEEN ls_list-begda AND ls_list-endda.
         <ls_psp>-awart = ls_list-awart.
@@ -202,14 +214,7 @@ FUNCTION zhr_prt_fg001_13.
         <fs_ws>-freeday = 'X'.
       ENDIF.
     ENDLOOP.
-
-
     APPEND LINES OF lt_wschedule TO et_wschedule.
-
-
-    "<<--------Izin talebinden onaylanmamış kayıtlar alınacak------>>
-
-    "<<--------END CODE------>>
   ENDLOOP.
 
   CLEAR ls_wschedule.
@@ -218,6 +223,7 @@ FUNCTION zhr_prt_fg001_13.
       WHERE awart IS INITIAL .
 
   IF i_leave_list EQ 'X'.
+    DELETE et_wschedule WHERE NOT awart IN lr_awart2[].
     DELETE et_wschedule WHERE awart IS INITIAL .
   ELSE.
     IF et_wschedule[] IS INITIAL .

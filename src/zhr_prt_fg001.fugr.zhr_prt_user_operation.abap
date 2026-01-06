@@ -17,9 +17,9 @@ FUNCTION zhr_prt_user_operation.
 *  initial_services.
 
   IF sy-sysid NE 'IHP'.
-    lv_url = 'http://ikportaltest.icdas.com.tr/api/v1/auth/login'.
+    lv_url = 'https://ikportaltest.icdas.com.tr/api/v1/auth/login'.
   ELSE.
-    lv_url = 'http://ikportal.icdas.com.tr/api/v1/auth/login'.
+    lv_url = 'https://ikportal.icdas.com.tr/api/v1/auth/login'.
   ENDIF.
   CLEAR lv_error.
   IF cv_token IS INITIAL .
@@ -34,9 +34,9 @@ FUNCTION zhr_prt_user_operation.
   message = lv_message.
   CHECK lv_error IS INITIAL .
   IF sy-sysid NE 'IHP'.
-    lv_url = 'http://ikportaltest.icdas.com.tr/api/v1/users/transfer-from-sap'.
+    lv_url = 'https://ikportaltest.icdas.com.tr/api/v1/users/transfer-from-sap'.
   ELSE.
-    lv_url = 'http://ikportal.icdas.com.tr/api/v1/users/transfer-from-sap'.
+    lv_url = 'https://ikportal.icdas.com.tr/api/v1/users/transfer-from-sap'.
   ENDIF.
   PERFORM user_oper USING cv_token
                           lv_url

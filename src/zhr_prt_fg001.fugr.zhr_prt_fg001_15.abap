@@ -149,7 +149,7 @@ FUNCTION zhr_prt_fg001_15.
           i_with_error_screen = 'X'
         RECEIVING
           result              = sent_to_all.
-
+      COMMIT WORK AND WAIT .
     CATCH cx_address_bcs INTO cx_add_bcs.
       lv_text = cx_add_bcs->get_text( ).
       ls_return-message = lv_text.

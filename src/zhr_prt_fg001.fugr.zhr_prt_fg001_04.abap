@@ -47,7 +47,7 @@ FUNCTION zhr_prt_fg001_04.
 
   IF i_fpper IS INITIAL .
 *    lr_fpper = VALUE #( FOR ls IN lt_donem ( sign = 'I' option = 'LT' low = ls-zfpper ) ) .
-*    DELETE lt_rgdir WHERE  fpper IN lr_fpper[].
+    DELETE lt_rgdir WHERE  fpper IN lr_fpper[].
     et_rgdir = lt_rgdir.
   ELSE.
     READ TABLE lt_rgdir INTO DATA(ls_rgdir) WITH KEY fpper = i_fpper.
@@ -56,7 +56,7 @@ FUNCTION zhr_prt_fg001_04.
       WHERE pernr  EQ i_pernr
         AND spmon  LT i_fpper
         AND approv NE 'X'.
-    IF sy-subrc EQ 0 .
+    IF sy-subrc EQ 0 AND i_fpper GE '202601'.
       ls_return-message_v1 = ls_t003-spmon+4(2) && '.' && ls_t003-spmon(4).
       PERFORM add_message TABLES et_return
                            USING ''
@@ -68,17 +68,27 @@ FUNCTION zhr_prt_fg001_04.
       EXIT.
     ENDIF.
 
-    lo_helper->get_payslip(
+    DATA : ev_spool TYPE  rspoid.
+    CALL FUNCTION 'ZHR_PRT_PAYROLL'
       EXPORTING
-        is_rgdir                   = ls_rgdir
-        iv_form_name               = lv_form
+        iv_pernr    = i_pernr
+        iv_forml    = 'ICSF'
+        iv_fpper    = ls_rgdir-fpper
       IMPORTING
-        ev_document                = ev_document
-        ev_doc_size                = ev_doc_size
-      EXCEPTIONS
-        ex_payslip_creation_failed = 1
-        OTHERS                     = 2
-    ).
+        ev_document = ev_document
+        ev_doc_size = ev_doc_size
+        ev_spool    = ev_spool.
+*    lo_helper->get_payslip(
+*      EXPORTING
+*        is_rgdir                   = ls_rgdir
+*        iv_form_name               = lv_form
+*      IMPORTING
+*        ev_document                = ev_document
+*        ev_doc_size                = ev_doc_size
+*      EXCEPTIONS
+*        ex_payslip_creation_failed = 1
+*        OTHERS                     = 2
+*    ).
     IF sy-subrc <> 0.
       ls_return-id         = sy-msgid.
       ls_return-type       = sy-msgty.

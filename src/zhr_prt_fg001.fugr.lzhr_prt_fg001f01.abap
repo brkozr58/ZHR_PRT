@@ -40,21 +40,21 @@ FORM pers_info  TABLES   pers_info STRUCTURE zhr_prt_s002
           t3~fater
 
          FROM pa0002 AS t2
-   LEFT  JOIN pa0770 AS t3
+   INNER  JOIN pa0770 AS t3
          ON    t3~pernr EQ t2~pernr
-          AND t3~begda      LE @pv_datum
-          AND t3~endda      GE @pv_datum
-          AND t3~subty      EQ '01'
-   LEFT JOIN t502t AS fatxt
+   INNER JOIN t502t AS fatxt
          ON    fatxt~famst EQ t2~famst
-            AND fatxt~sprsl  EQ @sy-langu
-   LEFT JOIN t005t AS gblnd_t
+   INNER JOIN t005t AS gblnd_t
          ON    gblnd_t~land1 EQ t2~gblnd
-            AND gblnd_t~spras EQ @sy-langu
       INTO CORRESPONDING FIELDS OF TABLE @pers_info
             WHERE t2~pernr      EQ @pv_pernr
               AND t2~begda      LE @pv_datum
-              AND t2~endda      GE @pv_datum.
+              AND t2~endda      GE @pv_datum
+              AND t3~subty      EQ '01'
+              AND fatxt~sprsl   EQ @sy-langu
+              AND gblnd_t~spras EQ @sy-langu
+              AND t3~begda      LE @pv_datum
+              AND t3~endda      GE @pv_datum.
   SORT pers_info. "+ATC Correction - GTUNA - 07.11.2025 09:48:04
   DELETE ADJACENT DUPLICATES FROM pers_info.
 ENDFORM.
@@ -84,7 +84,7 @@ FORM work_info  TABLES   work_info STRUCTURE zhr_prt_s003
 *        WHEN 'B' THEN 'Beyaz Yaka'
 *        ELSE 'Bilinmiyor!'
 *      END         AS zyakatur_t   ,
-*
+
 *      t1~zzlokkod     AS lokkod   ,
 *      zzlokkod~lokadi AS lokkod_t ,
       t1~btrtl                    ,
@@ -93,36 +93,36 @@ FORM work_info  TABLES   work_info STRUCTURE zhr_prt_s003
       bukrs_t~butxt   AS bukrs_t
               FROM pa0001 AS t1
 
-        LEFT JOIN t513s AS stell_t
+        INNER JOIN t513s AS stell_t
               ON    stell_t~stell EQ t1~stell
                 AND stell_t~sprsl EQ @sy-langu
                 AND stell_t~endda GE @pv_datum
 
-        LEFT JOIN t527x AS orgeh_t
+        INNER JOIN t527x AS orgeh_t
               ON    orgeh_t~orgeh EQ t1~orgeh
                 AND orgeh_t~sprsl EQ @sy-langu
                 AND orgeh_t~endda GE @pv_datum
 
-        LEFT JOIN t528t AS plans_t
+        INNER JOIN t528t AS plans_t
               ON    plans_t~plans EQ t1~plans
                 AND plans_t~sprsl EQ @sy-langu
                 AND plans_t~endda GE @pv_datum
 
-        LEFT JOIN t501t AS persg_t
+        INNER JOIN t501t AS persg_t
               ON    persg_t~persg EQ t1~persg
                 AND persg_t~sprsl EQ @sy-langu
 
-        LEFT JOIN t503t AS persk_t
+        INNER JOIN t503t AS persk_t
               ON    persk_t~persk EQ t1~persk
                 AND persk_t~sprsl EQ @sy-langu
 
-        LEFT JOIN t001p AS btrtl_t
+        INNER JOIN t001p AS btrtl_t
               ON    btrtl_t~btrtl EQ t1~btrtl
 
-        LEFT JOIN t001  AS bukrs_t
+        INNER JOIN t001  AS bukrs_t
               ON    bukrs_t~bukrs EQ t1~bukrs
 
-        LEFT JOIN pa0105 AS t2
+        INNER JOIN pa0105 AS t2
               ON    t2~pernr EQ t1~pernr
                 AND ( t2~subty EQ '0010'  OR t2~subty EQ 'MAIL' )
 
@@ -189,8 +189,9 @@ FORM educ_info  TABLES   educ_info   STRUCTURE zhr_prt_s005
          t1~sltp2                 ,
          sltp2_t~ftext AS sltp2_t ,
          t1~begda,
-*         t1~zdipno,
          t1~emark
+*    ,
+*         t1~zdipno
           FROM pa0022  AS t1
     LEFT OUTER JOIN t517t   AS slart_t
           ON    slart_t~slart EQ t1~slart
@@ -260,7 +261,7 @@ FORM adrs_info  TABLES   adrs_info   STRUCTURE zhr_prt_s007
          t1~ort01                 ,
          t1~ort02
           FROM pa0006  AS t1
-    LEFT JOIN t591s   AS anssa_t
+    INNER JOIN t591s   AS anssa_t
           ON    anssa_t~subty EQ t1~anssa
             AND anssa_t~infty EQ '0006'
             AND anssa_t~sprsl EQ @sy-langu
@@ -553,9 +554,9 @@ FORM append_approver  TABLES pt_approvers STRUCTURE zhr_prt_s014
           t1~plans,
           plans~stext AS plans_t,
           t1~stell,
-          stell~stext AS stell_t,
+          stell~stext AS stell_t
+*    ,
 *          zhrorg~orgsvy AS orgsvy
-    CAST( ( ' ' ) AS CHAR( 2 )  ) AS orgsvy
         FROM        pa0001  AS t1
         INNER  JOIN hrp1000 AS plans
           ON    plans~plvar EQ '01'
@@ -581,8 +582,10 @@ FORM append_approver  TABLES pt_approvers STRUCTURE zhr_prt_s014
         @ls_approver-plans,
         @ls_approver-plans_t,
         @ls_approver-stell,
-        @ls_approver-stell_t,
-        @ls_approver-orgsvy)
+        @ls_approver-stell_t
+*        ,
+*        @ls_approver-orgsvy
+        )
   WHERE t1~pernr EQ @ls_approver-pernr
     AND t1~endda GE @i_datum.
 
@@ -923,7 +926,7 @@ FORM operation_leave_data TABLES et_return  STRUCTURE  zhr_prt_sreturn
       ls_2001-subty = ls_t005-awart.
       ls_2001-beguz = ls_t005-beguz.
       ls_2001-enduz = ls_t005-enduz.
-      cs_t005-retdt = cs_leave-retdt.
+*      cs_t005-retdt = cs_leave-retdt.
 
       CALL FUNCTION 'HR_INFOTYPE_OPERATION'
         EXPORTING
@@ -1012,9 +1015,10 @@ FORM leave_req_send_mail TABLES pt_t004    STRUCTURE zhr_prt_t004
       " Yönetici ise A gelecek
            CAST(  ( CASE ( ynt~objid )
                       WHEN ' '  THEN ' '
-                      ELSE ynt~rsign END ) AS CHAR( 1 ) ) AS  zynt ,
+                      ELSE ynt~rsign END ) AS CHAR( 1 ) ) AS  zynt
+                      ,
+           CAST(  ( ' ' ) AS CHAR( 2 ) ) AS  zhrorg
 *           orgsv~orgsvy AS zhrorg
-          CAST( ( ' ' ) AS CHAR( 2 ) ) AS zhrorg
                    FROM pa0001  AS t1
         INNER JOIN hrp1000 AS stell
               ON    stell~plvar EQ '01'
@@ -1164,16 +1168,24 @@ FORM leave_req_send_mail TABLES pt_t004    STRUCTURE zhr_prt_t004
   ELSE.
     lt_paramaters-param = ls_cds2-kaltg. APPEND lt_paramaters.
   ENDIF.
+  DATA : lv_url TYPE char600 .
 
+  IF sy-sysid EQ 'IHP'.
+    lv_url = 'https://ikportal.icdas.com.tr/'.
+  ELSE.
+    lv_url = 'http://ikportaltest.icdas.com.tr:81/'.
+  ENDIF.
 *&8& Link
   CASE <ls_t004>-statu.
     WHEN '01'. "  Onay Bekliyor.
-      lt_paramaters-param = 'http://ikportaltest.icdas.com.tr:81/#/AppViewer?izin-onaylarim'.
+      CONCATENATE lv_url '#/AppViewer?izin-onaylarim' INTO lt_paramaters-param.
+*      lt_paramaters-param = 'http://ikportaltest.icdas.com.tr:81/#/AppViewer?izin-onaylarim'.
     WHEN '02' OR '03' OR '04' OR '05'.
-      lt_paramaters-param = 'http://ikportaltest.icdas.com.tr:81/#/AppViewer?izin-taleplerim'.
+      CONCATENATE lv_url '#/AppViewer?izin-taleplerim' INTO lt_paramaters-param.
+*      lt_paramaters-param = 'http://ikportaltest.icdas.com.tr:81/#/AppViewer?izin-taleplerim'.
 
     WHEN OTHERS .
-      lt_paramaters-param = 'http://ikportaltest.icdas.com.tr:81'.
+      lt_paramaters-param = lv_url.
   ENDCASE.
   APPEND lt_paramaters.
 
@@ -1186,6 +1198,8 @@ FORM leave_req_send_mail TABLES pt_t004    STRUCTURE zhr_prt_t004
 *&11& İşe dönüş tarihi
   lt_paramaters-param = <ls_t005>-retdt+6(2) && '.' && <ls_t005>-retdt+4(2) && '.' && <ls_t005>-retdt(4)  .APPEND lt_paramaters.
 
+*&12& İşe dönüş tarihi
+  lt_paramaters-param = ls_cds2-plans_t .APPEND lt_paramaters.
 
   DATA : lt_email TYPE zhr_prt_tt023 .
   DATA : ls_email TYPE zhr_prt_s023 .
@@ -1332,7 +1346,7 @@ FORM check_qouta TABLES pt_return STRUCTURE zhr_prt_sreturn
     EXPORTING
       i_srcid  = '00001'
       i_pernr  = ps_leave-pernr
-      i_datum  = sy-datum
+      i_datum  = ps_leave-begda
     IMPORTING
       et_qouta = lt_qouta.
 
@@ -1422,7 +1436,15 @@ FORM get_leave_list  TABLES   et_list STRUCTURE zhr_prt_s017_2
   "*ZHR_PRT_FG001_11 İzin Onay Talep Listesi (Puantör-Admin onaycı dahil)
 
   DATA : lt_dd07t    TYPE TABLE OF dd07t WITH HEADER LINE.
+  DATA : lr_awart2 TYPE RANGE OF awart .
 
+
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0204' )  TO lr_awart2.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0213' )  TO lr_awart2.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0215' )  TO lr_awart2.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0217' )  TO lr_awart2.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0241' )  TO lr_awart2.
+  APPEND VALUE #( sign    = 'I' option  = 'EQ' low     = '0424' )  TO lr_awart2.
 
   SELECT * FROM dd07t INTO TABLE lt_dd07t
       WHERE domname    EQ 'ZHR_PRT_STATU'
@@ -1462,18 +1484,12 @@ FORM get_leave_list  TABLES   et_list STRUCTURE zhr_prt_s017_2
         AND endda      GE  @i_begda
     .
 
+
   SORT et_list ASCENDING BY pernr seqnr DESCENDING begda endda .
   DELETE ADJACENT DUPLICATES FROM et_list .
-
-*  LOOP AT et_list INTO DATA(ls_list) WHERE tlpid NE '9999999999'
-*                                 AND aptyp EQ 'ZMNY'.
-*    READ TABLE gt_zmynt WITH KEY pernr = ls_list-ap_pernr
-*                                 sachx = ls_list-sachz.
-*    CHECK sy-subrc NE 0 .
-*    DELETE et_list WHERE tlpid    EQ ls_list-tlpid
-*                     AND ap_pernr EQ ls_list-ap_pernr.
-*  ENDLOOP.
-*  SORT et_list ASCENDING BY pernr seqnr DESCENDING begda endda .
+  IF lr_awart[] IS INITIAL .
+    DELETE et_list WHERE NOT awart IN lr_awart2[].
+  ENDIF.
 
   LOOP AT et_list INTO DATA(ls_list) WHERE tlpid EQ '9999999999'.
     LOOP AT et_list TRANSPORTING NO FIELDS WHERE tlpid NE ls_list-tlpid

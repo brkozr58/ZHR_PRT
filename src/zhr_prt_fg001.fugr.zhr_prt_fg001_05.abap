@@ -37,7 +37,7 @@ FUNCTION zhr_prt_fg001_05.
 *          mintg     TYPE t554s-mintg,
 *          maxtg     TYPE t554s-maxtg,
 *        END OF lt_awart,
-        lt_awart TYPE TABLE OF zhr_prt_ddl005  WITH HEADER LINE  .
+        lt_awart      TYPE TABLE OF zhr_prt_ddl005  WITH HEADER LINE.
 
   DATA langu LIKE sy-langu VALUE 'T'.
   SET LOCALE LANGUAGE  langu.
@@ -139,11 +139,16 @@ FUNCTION zhr_prt_fg001_05.
   DELETE lt_awart WHERE NOT awart IN lr_awart .
   "<<--------END CODE------>>
 
-  LOOP AT p2006 INTO DATA(ls_2006) WHERE SPRPS NE 'X'.
+  SORT p2006 DESCENDING BY begda deend.
+  LOOP AT p2006 INTO DATA(ls_2006) WHERE sprps NE 'X'
+                                     AND ktart EQ '01'
+*                                     AND desta LE lv_datum
+    .
     ls_qouta-ktart    = ls_2006-ktart.
+    ADD 1 TO ls_qouta-seqnr.
     READ TABLE lt_awart INTO DATA(ls_awart) WITH KEY qttps = ls_2006-ktart.
     ls_qouta-ktart_t = ls_awart-ktart_t.
-    ls_qouta-begda    = ls_2006-begda.
+    ls_qouta-begda    = ls_2006-begda .
     ls_qouta-endda    = ls_2006-deend.
     ls_qouta-anzhl    = ls_2006-anzhl.
     ls_qouta-kverb    = ls_2006-kverb.
@@ -168,12 +173,13 @@ FUNCTION zhr_prt_fg001_05.
   IF i_datum IS INITIAL .
     SORT et_qouta DESCENDING BY begda endda.
     DELETE et_qouta WHERE seqnr GT 5 .
-  ELSE.
-    DELETE et_qouta WHERE begda GE i_datum.
-    SORT et_qouta DESCENDING BY begda endda.
+*  ELSE.
+*    DELETE et_qouta WHERE begda GE i_datum.
+*    SORT et_qouta DESCENDING BY begda endda.
   ENDIF.
 
   "<<--------Portal izinlerini Onayda bekleyen izinleri kotadan düş ------>>
+  SORT et_qouta ASCENDING BY qouta.
   LOOP AT lt_list INTO DATA(ls_list) .
     READ TABLE lt_awart INTO ls_awart WITH KEY awart = ls_list-awart.
     LOOP AT et_qouta ASSIGNING FIELD-SYMBOL(<fs>)
@@ -181,13 +187,20 @@ FUNCTION zhr_prt_fg001_05.
       IF ls_list-abrtg LE <fs>-qouta.
         <fs>-qouta = <fs>-qouta - ls_list-abrtg.
         <fs>-kverb = <fs>-kverb + ls_list-abrtg.
+        ls_list-abrtg = ls_list-abrtg - ls_list-abrtg.
       ELSE.
         ls_list-abrtg = ls_list-abrtg - <fs>-qouta.
         <fs>-kverb = <fs>-kverb + <fs>-qouta.
         <fs>-qouta = 0 .
       ENDIF.
+
+      IF ls_list-abrtg EQ 0 .
+        EXIT.
+      ENDIF.
     ENDLOOP.
   ENDLOOP.
   "<<--------END CODE------>>
+
+  SORT et_qouta DESCENDING BY begda endda.
 
 ENDFUNCTION.

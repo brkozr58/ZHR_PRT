@@ -239,7 +239,7 @@ FUNCTION zhr_prt_check_leave.
   DATA : lt_wschedule TYPE  zhr_prt_tt012,
          lv_endd      TYPE datum.
   cs_leave-retdt = cs_leave-endda + 1 .
-  lv_endd = cs_leave-retdt + 15 .
+  lv_endd = cs_leave-retdt + 25 .
 
   CALL FUNCTION 'ZHR_PRT_FG001_13'
     EXPORTING

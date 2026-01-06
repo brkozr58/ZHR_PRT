@@ -26,6 +26,7 @@
              errors    TYPE TABLE OF string,
              timestamp TYPE string,
            END OF ls_rest,
+           url       TYPE string,
            lv_user   TYPE string,
            lv_pswd   TYPE string,
            lt_return TYPE TABLE OF bapiret2.
@@ -33,9 +34,10 @@
     initial_services.
 
     TRY.
+        url = pv_url.
         CALL METHOD cl_http_client=>create_by_url
           EXPORTING
-            url                = pv_url "wl_url
+            url                = url "wl_url
           IMPORTING
             client             = w_http_client
           EXCEPTIONS
@@ -82,7 +84,9 @@
 
       CATCH cx_root INTO DATA(lx_exception).
         DATA(error) =  lx_exception->get_text( ).
-        cv_error = CONV #( error ) .
+*        cv_error = CONV #( error ) .
+        cv_error = 'E'.
+        cv_message = CONV #( error ) .
     ENDTRY.
 
   ENDFORM.
@@ -119,9 +123,16 @@
              errors    TYPE TABLE OF string,
              timestamp TYPE string,
            END OF ls_rest,
-           lv_aut TYPE string.
+           lv_aut TYPE string,
+           url    TYPE string.
     DATA : et_persons TYPE  zhr_prt_tt022 .
     DATA : lt_rolls TYPE TABLE OF  zhr_prt_t008 .
+    DATA : lv_pers LIKE ps_pers-pernr.
+    .
+
+    SELECT * FROM zhr_prt_t008 INTO TABLE lt_rolls.
+
+
     CALL FUNCTION 'ZHR_PRT_FG001_20'
       EXPORTING
         i_pernr    = ps_pers-pernr
@@ -129,18 +140,21 @@
       IMPORTING
         et_persons = et_persons.
     IF et_persons[] IS NOT INITIAL .
-      SELECT * FROM zhr_prt_t008 INTO TABLE lt_rolls
-        FOR ALL ENTRIES IN  et_persons
-          WHERE aptyp EQ et_persons-aptyp
-            AND head  EQ et_persons-head.
-      LOOP AT lt_rolls INTO DATA(ls_rolls) .
-        IF sy-tabix EQ 1 .
-          pv_oper = ls_rolls-zzrol.
+      READ TABLE et_persons INTO DATA(ls_persv) INDEX 1 .
+      LOOP AT lt_rolls INTO DATA(ls_rolls)
+              WHERE aptyp EQ ls_persv-aptyp
+                AND head  EQ ls_persv-head.
+        IF lv_rols IS INITIAL  .
+          lv_rols = ls_rolls-zzrol.
         ELSE .
-          CONCATENATE pv_oper ls_rolls-zzrol INTO pv_oper SEPARATED BY ','.
+          CONCATENATE lv_rols ls_rolls-zzrol INTO lv_rols SEPARATED BY ','.
         ENDIF.
       ENDLOOP.
     ENDIF.
+
+    lv_pers = ps_pers-pernr.
+
+    SHIFT lv_pers LEFT DELETING LEADING '0'.
 
 
 
@@ -153,9 +167,10 @@
             status_text      .
 
     TRY.
+        url = pv_url.
         CALL METHOD cl_http_client=>create_by_url
           EXPORTING
-            url                = pv_url
+            url                = url
           IMPORTING
             client             = w_http_client
           EXCEPTIONS
@@ -173,13 +188,13 @@
           '{'
             '"users" : ['
                '{'
-                  '"personnelNo" : "' ps_pers-pernr '",'
+                  '"personnelNo" : "' lv_pers '",'
                   '"firstName" : "'   ps_pers-vorna '",'
                   '"lastName" : "'    ps_pers-nachn '",'
                   '"email" : "'       ps_pers-zemail '",'
                   '"phoneNumber" : "' ps_pers-cell   '",'
-                  '"isCreatePortalUser" : ' pv_oper '",'
-                  '"roleNames" : ' lv_rols
+                  '"isCreatePortalUser" : ' pv_oper ','
+                  '"roleNames" : "' lv_rols '"'
                '}'
             ']'
          '}' INTO  cdata.
@@ -229,7 +244,9 @@
 
       CATCH cx_root INTO DATA(lx_exception).
         DATA(error) =  lx_exception->get_text( ).
-        cv_error = CONV #( error ) .
+*        cv_error = CONV #( error ) .
+        cv_error = 'E'.
+        cv_message = CONV #( error ) .
     ENDTRY.
 
   ENDFORM.

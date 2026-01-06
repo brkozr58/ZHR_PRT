@@ -91,7 +91,9 @@ FUNCTION zhr_prt_fg001_09.
     WHEN OTHERS.
       lv_admin = i_admin.
       " Zaman yöneticisi kendi taleplerini statü farketmeksizin iptal edebilsin.
-      IF i_admin NE 'X' AND cr_pernr EQ is_leave-pernr.
+      READ TABLE lt_t006 ASSIGNING FIELD-SYMBOL(<fs_6>)
+              WITH KEY tlpid = is_leave-tlpid statu = '01' .
+      IF i_admin NE 'X' AND cr_pernr EQ is_leave-pernr AND <fs_6>-seqnr NE 1 .
         CALL FUNCTION 'ZHR_PRT_FG001_20'
           EXPORTING
             i_pernr    = cr_pernr
@@ -115,7 +117,7 @@ FUNCTION zhr_prt_fg001_09.
       ENDIF.
 
 
-      READ TABLE lt_t006 ASSIGNING FIELD-SYMBOL(<fs_6>)
+      READ TABLE lt_t006 ASSIGNING <fs_6>
               WITH KEY tlpid = is_leave-tlpid statu = '01'.
       IF sy-subrc NE 0 AND <fs_4>-statu EQ '04' AND i_statu EQ '05'.
         SELECT * FROM zhr_prt_t006 INTO TABLE lt_t006
@@ -128,6 +130,9 @@ FUNCTION zhr_prt_fg001_09.
       <fs_6>-ap_zdesc = is_leave-ap_zdesc .
 *      lv_statu = <fs_4>-statu = i_statu.
       lv_statu = i_statu.
+      IF <fs_4>-statu NE '04' .
+        lv_statu = <fs_4>-statu = i_statu.
+      ENDIF.
 *      <fs_4>-unamechn = <fs_5>-unamechn = <fs_6>-unamechn = sy-uname  .
       <fs_4>-unamechn = <fs_5>-unamechn = <fs_6>-unamechn = cr_pernr  .
       <fs_4>-datumchn = <fs_5>-datumchn = <fs_6>-datumchn = sy-datum  .
